@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "message_mark_delete_icon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

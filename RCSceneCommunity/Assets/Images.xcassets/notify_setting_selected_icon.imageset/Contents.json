@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "notify_setting_selected_icon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

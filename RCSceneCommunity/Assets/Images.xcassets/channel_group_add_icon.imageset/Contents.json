@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "channel_group_add_icon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
