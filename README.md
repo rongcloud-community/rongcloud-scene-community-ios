@@ -22,7 +22,7 @@ pod 'RCSceneCommunity'
 
 ## Author
 
-xuefeng, suixuefeng@rongcloud.cn
+xuefeng, suixuefeng@rongcloud.cn; ashine,gongjiahao@rongcloud.cn
 
 ## License
 
