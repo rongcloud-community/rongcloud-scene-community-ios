@@ -26,12 +26,12 @@ open class RCSCMessageListViewController: RCSCBaseViewController, RCIMReceiveMes
             let nums = newValue
             segmentedDataSource.numbers = nums
             segmentedView.reloadDataWithoutListContainer()
-//            let badgeValueNum = nums[0] + nums[1]
-//            if badgeValueNum > 0{
-//                self.tabBarController?.tabBar.showBadgeOnItemIndex(3)
-//            }else{
-//                self.tabBarController?.tabBar.hideBadgeOnItemIndex(3)
-//            }
+            let badgeValueNum = nums[0] + nums[1]
+            if badgeValueNum > 0{
+                self.tabBarController?.tabBar.showBadgeOnItemIndex(3)
+            }else{
+                self.tabBarController?.tabBar.hideBadgeOnItemIndex(3)
+            }
         }
     }
     
