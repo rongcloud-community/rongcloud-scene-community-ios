@@ -113,6 +113,15 @@ open class RCSCMessageListViewController: RCSCBaseViewController, RCIMReceiveMes
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        var numsDatas = self.numbers
+
+        let count0 = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_PRIVATE.rawValue])
+        numsDatas[0] = Int(count0)
+         
+        let count1 = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_SYSTEM.rawValue])
+        numsDatas[1] = Int(count1)
+        
+        self.numbers = numsDatas
     }
 
  

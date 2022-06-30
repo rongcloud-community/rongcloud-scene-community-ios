@@ -390,7 +390,9 @@ extension RCSCSystemMessageTableListView: UITableViewDataSource,UITableViewDeleg
                         
                         
                     }.failed { error in
-                        SVProgressHUD.showError(withStatus: "\(error.desc)")
+                        if error.code != 10001 {
+                            SVProgressHUD.showError(withStatus: "\(error.desc)")
+                        }
                     }
                     
                     
@@ -478,6 +480,7 @@ extension RCSCSystemMessageTableListView : JXSegmentedListContainerViewListDeleg
     
     func listDidDisappear() {
         debugPrint("\(type(of: self))-> listDidDisappear")
+        
     }
     
 }
