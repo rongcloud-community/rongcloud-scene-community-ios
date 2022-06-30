@@ -312,6 +312,7 @@ class RCSCConversationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(markMessageHubRemoved), name: RCSCMarkMessageHubViewRemovedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(markMessageHubAdd), name: RCSCMarkMessageHubViewAddNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(communityDetailChanged(notification:)), name: RCSCCommunityDetailChangedNotification,object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pushToMarkMessageViewController(notification:)), name: RCSCMarkMessageHubViewPushMarkMessageViewControllerNotification, object: nil)
     }
     
     private func fetchInitializeMessages() {
@@ -526,6 +527,16 @@ class RCSCConversationViewController: UIViewController {
             SVProgressHUD.showInfo(withStatus: message)
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    @objc private func pushToMarkMessageViewController(notification: Notification) {
+        guard let messageUid = notification.object as? String else { return }
+        let markMessageVC = RCSCMarkMessageViewController(communityId: self.communityId, channelId: self.channelId)
+        markMessageVC.isCreator = self.isCreator
+        markMessageVC.jumpToMessage = { markMessage in
+            self.jumpToMessage(messageUid: messageUid)
+        }
+        navigationController?.pushViewController(markMessageVC, animated: true)
     }
     
     @objc private func collectionViewScrollToBotton() {

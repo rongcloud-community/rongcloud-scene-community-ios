@@ -51,6 +51,7 @@ extension RCSCSystemMessageType {
     }
     
     func handleAlertNotification(message: String?, communityId: String, fromUserID: String, type: RCSCSystemMessageType) {
+        guard let _ = RCSCCommunityManager.manager.detailData else { return }
         if communityId == RCSCCommunityManager.manager.currentDetail.uid {
             if let viewController = RCSCCommunityManager.manager.currentConversationViewController {
                 let title = type == .dissolve ? "当前社区已经解散" : "您已经被踢出该社区"

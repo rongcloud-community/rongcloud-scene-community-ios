@@ -140,21 +140,20 @@ extension RCSCCommunityListView: RCSCCommunityDataSourceDelegate {
         guard let list = list else {
             return
         }
-        var needSetSelectedIndexPath = false
-        /*空列表加载数据，默认选中第一个*/
-        /*社区列表增加元素，新建或者关注，默认选中新增的社区*/
-        needSetSelectedIndexPath = dataSource[1].count == 0 && list.count != 0 || dataSource[1].count != list.count ||  list.count == 1
-        
-        
-        if (needSetSelectedIndexPath) {
-            dataSource[0].removeAll()
-        }
         dataSource[1] = list
         collectionView.reloadData()
-        if (needSetSelectedIndexPath && !list.isEmpty) {
-            collectionView.selectItem(at: IndexPath(row: 0, section: 1), animated: false, scrollPosition: .top)
-        } else if dataSource[0].count > 0 {
+        if dataSource[0].count > 0 {
             collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
+        } else if RCSCCommunityManager.manager.detailData != nil {
+            let currentDetail = RCSCCommunityManager.manager.currentDetail
+            for (index, record) in dataSource[1].enumerated() {
+                if record.communityUid == currentDetail.uid {
+                    collectionView.selectItem(at: IndexPath(row: index, section: 1), animated: false, scrollPosition: .top)
+                    break
+                }
+            }
+        } else {
+            collectionView.selectItem(at: IndexPath(row: 0, section: 1), animated: false, scrollPosition: .top)
         }
     }
     

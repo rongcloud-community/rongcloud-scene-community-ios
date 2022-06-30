@@ -9,6 +9,7 @@ import UIKit
 
 let RCSCMarkMessageHubViewRemovedNotification = Notification.Name(rawValue: "RCSCMarkMessageHubViewRemovedNotification")
 let RCSCMarkMessageHubViewAddNotification = Notification.Name(rawValue: "RCSCMarkMessageHubViewAddNotification")
+let RCSCMarkMessageHubViewPushMarkMessageViewControllerNotification = Notification.Name(rawValue: "RCSCMarkMessageHubViewPushMarkMessageViewControllerNotification")
 
 protocol RCSCMarkMessageHubViewDelegate: NSObjectProtocol {
     func removeClick(hubView: RCSCMarkMessageHubView)
@@ -23,6 +24,8 @@ class RCSCMarkMessageHubView: UIView {
     private lazy var iconImageView = UIImageView(image: Asset.Images.messageMarkHubIcon.image)
     
     weak var delegate: RCSCMarkMessageHubViewDelegate?
+    
+    var messageUid: String?
     
     private lazy var contentLabel: UILabel = {
         let label = UILabel()
@@ -77,6 +80,9 @@ class RCSCMarkMessageHubView: UIView {
             make.leading.bottom.trailing.equalToSuperview()
             make.height.equalTo(0.5)
         }
+        isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
+        addGestureRecognizer(tap)
     }
     
     func updateUI(content: RCSCMessageProtocol) {
@@ -88,6 +94,12 @@ class RCSCMarkMessageHubView: UIView {
             return
         }
         delegate.removeClick(hubView: self)
+    }
+    
+    @objc private func tap() {
+        if let messageUid = messageUid {
+            NotificationCenter.default.post(name: RCSCMarkMessageHubViewPushMarkMessageViewControllerNotification, object: messageUid)
+        }
     }
     
     override func removeFromSuperview() {
@@ -147,6 +159,7 @@ class RCSCMarkMessageHub: NSObject {
               let messageContent = message.content as? RCSCMessageProtocol
         else { return }
         let hubView = hubView(content: messageContent)
+        hubView.messageUid = messageUid
         viewController.view.addSubview(hubView)
         currentHubView = hubView
         if animation {

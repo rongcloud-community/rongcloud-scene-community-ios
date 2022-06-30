@@ -12,7 +12,7 @@ class RCSCCommunityManager: NSObject {
     
     static let manager = RCSCCommunityManager()
     
-    private var detailData: RCSCCommunityDetailData?
+    var detailData: RCSCCommunityDetailData?
     
     var currentDetail: RCSCCommunityDetailData {
         get {
