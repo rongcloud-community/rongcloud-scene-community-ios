@@ -317,6 +317,7 @@ class RCSCSystemMessageTableCell: UITableViewCell {
         let imgV = UIImageView()
         imgV.layer.masksToBounds = true
         imgV.layer.cornerRadius = 27
+        imgV.contentMode = .scaleAspectFill
         return imgV
     }()
     lazy var titleLabel: UILabel = {

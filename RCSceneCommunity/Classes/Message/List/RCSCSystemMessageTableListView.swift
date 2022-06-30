@@ -367,14 +367,33 @@ extension RCSCSystemMessageTableListView: UITableViewDataSource,UITableViewDeleg
             
             let sysMsg = cellMessageData
             if let sysMessage = sysMsg.content as? RCSCSystemMessage,
-               let content = sysMessage.content, let communityUid = content.communityUid{
+               let content = sysMessage.content, let communityUid = content.communityUid {
                 guard let extraIntStr = cellMessageData.extra , extraIntStr != "0"  else {
                     debugPrint("cellMessageData.extra扩展:\(cellMessageData.extra)")
                     return cell
                 }
                 
                 RCSCCommunityDetailApi(communityId: communityUid).fetch().success { object in
-                    debugPrint("normal do nothing")
+                    debugPrint("社区如果存在,查看社区用户的状态")
+                    //社区如果存在,查看社区用户的状态
+                    RCSCCommunityUserInfoApi(communityUid: communityUid, userUid: cellUserInfo?.userId ?? "" ).fetch().success { [weak self] object in
+                        guard let `self` = self else { return }
+                        guard let rCSCCommunityUserInfo = object  else { return }
+                        if rCSCCommunityUserInfo.status == 3 { //已加入
+                            cellMessageData.extra = "1"
+                            RCCoreClient.shared().setMessageExtra(cellMessageData.messageId, value: "1") // 入库
+                            self.dataSourceArray[indexPath.row] = cellMessageData
+                            self.tableView.beginUpdates()
+                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                            self.tableView.endUpdates()
+                        }
+                        
+                        
+                    }.failed { error in
+                        SVProgressHUD.showError(withStatus: "\(error.desc)")
+                    }
+                    
+                    
                 }.failed { [weak self] error in
                     if error.code == 10001 { //实测,删除后code 返回10001
                         debugPrint("社区ID:\(communityUid) 已不存在")
@@ -388,9 +407,13 @@ extension RCSCSystemMessageTableListView: UITableViewDataSource,UITableViewDeleg
                         SVProgressHUD.showError(withStatus: "\(error.desc)")
                     }
                 }
+                
+                
+                
+         
             }
 
-            
+ 
             /*
                 // 显示时候,判断,CommunityID 是否存在; 如果不存在 直接手动拒绝,拒绝
              RCSCCommunityListApi(pageNum: 1, pageSize: 1000).fetch().success { [weak self] object in
@@ -450,6 +473,7 @@ extension RCSCSystemMessageTableListView : JXSegmentedListContainerViewListDeleg
 
     func listDidAppear() {
         debugPrint("\(type(of: self))-> listDidAppear")
+//        tableView.mj_header?.beginRefreshing()
     }
     
     func listDidDisappear() {

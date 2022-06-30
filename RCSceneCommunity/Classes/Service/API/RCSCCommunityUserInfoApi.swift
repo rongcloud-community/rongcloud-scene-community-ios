@@ -8,7 +8,7 @@
 
 class RCSCCommunityUserInfo: Codable {
     var userUid, nickName, portrait: String
-    var status: Int
+    var status: Int //用户社区状态 1:审核中,2:审核未通过,3:已进入，4:退出,5:被踢出
     init(userUid: String, nickName: String, portrait: String, status: Int) {
         self.nickName = nickName
         self.userUid = userUid
