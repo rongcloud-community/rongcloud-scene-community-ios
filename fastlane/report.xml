@@ -5,9 +5,61 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: git_pull" time="9.066301">
+      <testcase classname="fastlane.lanes" name="00: git_pull" time="9.899068">
         
-          <failure message="/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/actions/actions_helper.rb:67:in `execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:255:in `block in execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:229:in `chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:229:in `execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing&apos;&#10;Fastfile:30:in `block in parsing_binding&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/lane.rb:33:in `call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:45:in `chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:45:in `execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/lane_manager.rb:47:in `cruise_lane&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/command_line_handler.rb:36:in `handle&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/commands_generator.rb:110:in `block (2 levels) in run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/commander-4.6.0/lib/commander/command.rb:187:in `call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/commander-4.6.0/lib/commander/command.rb:157:in `run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/commander-4.6.0/lib/commander/runner.rb:444:in `run_active_command&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in `run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/commander-4.6.0/lib/commander/delegates.rb:18:in `run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/commands_generator.rb:354:in `run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/commands_generator.rb:43:in `start&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/fastlane/lib/fastlane/cli_tools_distributor.rb:123:in `take_off&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/gems/fastlane-2.207.0/bin/fastlane:23:in `&lt;top (required)&gt;&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/bin/fastlane:25:in `load&apos;&#10;/opt/homebrew/Cellar/fastlane/2.207.0/libexec/bin/fastlane:25:in `&lt;main&gt;&apos;&#10;&#10;Exit status of command &apos;git pull &amp;&amp; git fetch --tags&apos; was 1 instead of 0.&#10;已经是最新的。&#10;来自 github.com:rongcloud-community/rongcloud-scene-community-ios&#10; ! [已拒绝]          0.1.1      -&gt; 0.1.1  (会破坏现有的标签)&#10;" />
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="01: ensure_git_branch" time="0.036137">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="02: version_bump_podspec" time="0.001519">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="03: git_add" time="0.030108">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="04: git_commit" time="0.037019">
+        
+          <failure message="/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/actions/actions_helper.rb:67:in `execute_action&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:255:in `block in execute_action&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:229:in `chdir&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:229:in `execute_action&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing&apos;&#10;Fastfile:49:in `block in parsing_binding&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/lane.rb:33:in `call&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:45:in `chdir&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:45:in `execute&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/lane_manager.rb:47:in `cruise_lane&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/command_line_handler.rb:36:in `handle&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/commands_generator.rb:110:in `block (2 levels) in run&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/commander-4.6.0/lib/commander/command.rb:187:in `call&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/commander-4.6.0/lib/commander/command.rb:157:in `run&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/commander-4.6.0/lib/commander/runner.rb:444:in `run_active_command&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in `run!&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/commander-4.6.0/lib/commander/delegates.rb:18:in `run!&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/commands_generator.rb:354:in `run&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/commands_generator.rb:43:in `start&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/cli_tools_distributor.rb:123:in `take_off&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/bin/fastlane:23:in `&lt;top (required)&gt;&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/bin/fastlane:25:in `load&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/bin/fastlane:25:in `&lt;main&gt;&apos;&#10;&#10;Exit status of command &apos;git commit -m :bookmark:\ 0.1.2\ Auto\ message\ fastlane\ 2022-07-01-18-24\ release\ 0.1.2 .&apos; was 1 instead of 0.&#10;On branch main&#10;Your branch is up to date with &apos;origin/main&apos;.&#10;&#10;nothing to commit, working tree clean&#10;" />
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="05: push_to_git_remote" time="8.479839">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: git_tag_exists" time="0.022096">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: remove_git_tag" time="10.66901">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: add_git_tag" time="0.054919">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: push_git_tags" time="4.37895">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: cd /Users/dev/Documents/rc_work/work_codes/gerrit_codes/patch/rongcloud-scene-community-ios &amp;&amp; pod lib lint RCSceneCommunity.podspec --no-clean --allow-warnings" time="572.797695">
+        
+          <failure message="/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/actions/actions_helper.rb:67:in `execute_action&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/fast_file.rb:222:in `sh&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/fast_file.rb:216:in `sh&apos;&#10;Fastfile:76:in `block in parsing_binding&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/lane.rb:33:in `call&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:45:in `chdir&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/runner.rb:45:in `execute&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/lane_manager.rb:47:in `cruise_lane&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/command_line_handler.rb:36:in `handle&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/commands_generator.rb:110:in `block (2 levels) in run&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/commander-4.6.0/lib/commander/command.rb:187:in `call&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/commander-4.6.0/lib/commander/command.rb:157:in `run&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/commander-4.6.0/lib/commander/runner.rb:444:in `run_active_command&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in `run!&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/commander-4.6.0/lib/commander/delegates.rb:18:in `run!&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/commands_generator.rb:354:in `run&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/commands_generator.rb:43:in `start&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/fastlane/lib/fastlane/cli_tools_distributor.rb:123:in `take_off&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/gems/fastlane-2.207.0/bin/fastlane:23:in `&lt;top (required)&gt;&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/bin/fastlane:25:in `load&apos;&#10;/usr/local/lib/ruby/gems/3.1.0/bin/fastlane:25:in `&lt;main&gt;&apos;&#10;&#10;Exit status of command &apos;cd /Users/dev/Documents/rc_work/work_codes/gerrit_codes/patch/rongcloud-scene-community-ios &amp;&amp; pod lib lint RCSceneCommunity.podspec --no-clean --allow-warnings&apos; was 1 instead of 0.&#10;&#10; -&gt; RCSceneCommunity -&gt; RCSceneCommunity (0.1.2)&#10;    - WARN  | url: There was a problem validating the URL https://github.com/rongcloud-community.&#10;    - ERROR | [iOS] unknown: Encountered an unknown error ([!] /usr/bin/git clone https://github.com/onevcat/Kingfisher.git /var/folders/72/fkcldywd2gzgyrcgbk_vcm440000gn/T/d20220701-43470-pt43g9 --template= --single-branch --depth 1 --branch 6.3.1&#10;&#10;Cloning into &apos;/var/folders/72/fkcldywd2gzgyrcgbk_vcm440000gn/T/d20220701-43470-pt43g9&apos;...&#10;fatal: unable to access &apos;https://github.com/onevcat/Kingfisher.git/&apos;: LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443 &#10;) during validation.&#10;&#10;Pods workspace available at `/var/folders/72/fkcldywd2gzgyrcgbk_vcm440000gn/T/CocoaPods-Lint-20220701-43470-umpvr4-RCSceneCommunity/App.xcworkspace` for inspection.&#10;&#10;[!] RCSceneCommunity did not pass validation, due to 1 error.&#10;" />
         
       </testcase>
     
