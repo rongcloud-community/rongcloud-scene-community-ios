@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   
   # 2 - Version
-  s.version = '0.1.1'
+  s.version = '0.1.2'
   
   # 3 - License
   s.license          = { :type => 'MIT', :file => 'LICENSE' }

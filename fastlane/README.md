@@ -19,12 +19,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane release_pod
 ```
 
-### Quick start (快速启动,执行autoPodRelease.sh 版本号 )
-
-```sh
-./fastlane/Scripts/autoPodRelease.sh tag_version(eg,0.1.0)
-```
-
 release_pod 航道用来自动化升级维护私有库
 
 ----
