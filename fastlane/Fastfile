@@ -1,42 +1,52 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
+# import_from_git(url: 'git@github.com:ashine/JHUpdatePodTool.git')
+## # or
+## import_from_git(url: 'git@github.com:ashine/JHUpdatePodTool.git',
+##               path: 'fastlane/Fastfile')
+## 
+# lane :new_main_lane do
+#   # ...
+# end
 
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
 
-desc 'Release new pod version'
+desc 'release_pod 航道用来自动化升级维护私有库'
 lane :release_pod do |options|
+  target_repo    = options[:repo]
   target_project = options[:project]
   target_version = options[:version]
-  target_desc    = options[:desc]
-  spec_path      = "#{target_project}.podspec"
-  
-  if target_project.nil? || target_project.empty? || target_version.nil? || target_version.empty?
-    UI.message("❌ Project name and version number are required parameters")
-    exit
-  end
-  
-  UI.message("👉 Start release lib #{target_project} new version #{target_version}")
+  tag_Message = options[:tagMsg]
+  branch_name = options[:branchName]
+  spec_path = "#{target_project}.podspec"
+  current_path = File.expand_path("..")
+  currentTime = Time.new.strftime("%Y-%m-%d-%H-%M").to_s.chomp 
+  gitMSgStr = "auto message"
+   unless options[:tagMsg]
+   tag_Message = "fastlane#{currentTime}auto message"
+   gitMSgStr = ":bookmark: #{target_version} Auto message fastlane #{currentTime}"
+   else 
+   tag_Message = options[:tagMsg]
+   gitMSgStr = ":bookmark: #{tag_Message}_Auto message fastlane"
+   end
   
   git_pull
-  ensure_git_branch branch: 'main'
+
+  unless options[:branchName]
+    # 确认是 master 分支 -> main
+    ensure_git_branch(
+    branch: "main"
+    )
+  else 
+   branch_name = options[:branchName]
+    ensure_git_branch(
+    branch: branch_name
+    )
+  end
+  
+  # 修改 spec 为即将发布的版本
   version_bump_podspec(path: spec_path, version_number: target_version)
+  # 提交代码到远程仓库
   git_add(path: '.')
   begin
-    if target_desc.nil? || target_desc.empty?
-      git_commit(path: '.', message: "release #{target_version}")
-    else
-      git_commit(path: '.', message: target_desc)
-    end
+      git_commit(path: '.', message: "#{gitMSgStr} release #{target_version}")
   rescue
     error_message = "#{$!}"
     UI.message("⚠️ commit error:#{error_message}")
@@ -44,14 +54,43 @@ lane :release_pod do |options|
     end
     UI.message("The local code has committed, skip the commit step!")
   end
+
+
   push_to_git_remote
+  
+  # 检查对于 tag 是否已经存在
   if git_tag_exists(tag: target_version)
-      UI.message("Tag #{target_version} already exists, then, delete it! 💥")
+      # 删除对应 tag
       remove_git_tag(tag: target_version)
   end
-  add_git_tag(tag: target_version)
-  push_git_tags
-  pod_lib_lint(allow_warnings: true)
-  pod_push(path: spec_path, allow_warnings: true)
-  UI.message("Release lib #{target_project} new version #{target_version} to CocoaPods/Specs Successfully! 🎉 ")
+  # 添加 tag
+  add_git_tag(
+    tag: target_version,
+    message: tag_Message
+  )
+  # 提交 tag 
+  push_git_tags 
+  # 验证 spec 文件 pod_lib_lint 
+# pod_lib_lint(allow_warnings: true,no_clean:true,podspec:spec_path)
+
+sh "cd #{current_path} && pod lib lint #{spec_path.to_s.chomp} --no-clean --allow-warnings"
+  
+  # 检查是否传了 repo 参数podspec
+  if target_repo
+  	# pod repo push 'target_repo' 'spec_path'
+#   pod_push(path: spec_path, repo: target_repo, allow_warnings: true)
+sh "cd #{current_path} && pod repo push #{target_repo} #{spec_path.to_s.chomp} --allow-warnings "
+  else
+#      begin
+#      sh "pod trunk delete #{target_project} #{target_version} --verbose" #尝试先删除对应的podSec,实测卡住无用
+#      rescue => ex
+#      UI.error(ex)
+#      end
+  	# pod trunk push 'spec_path'
+    sh "cd #{current_path} && pod trunk push #{spec_path.to_s.chomp}  --allow-warnings "
+#pod_push(path: spec_path, allow_warnings: true)
+  end
+  ## 更新本地索引库
+  #pod_update_private_spec(repoName:target_repo)
+
 end

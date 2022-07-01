@@ -1,78 +1,101 @@
 module Fastlane
   module Actions
+    module SharedValues
+      REMOVE_GIT_TAG_CUSTOM_VALUE = :REMOVE_GIT_TAG_CUSTOM_VALUE
+    end
+
     class RemoveGitTagAction < Action
       def self.run(params)
+
+        # params[:参数名称] 参数名称与下面self.available_options中的保持一致
+        tagNum = params[:tag]
+        rmLocalTag = params[:remove_local]
+        rmRemoteTag = params[:remove_remote]
+
         command = []
-
-        target_tag = params[:tag]
-        remove_local = params[:remove_local]
-        remove_remote = params[:remove_remote]
-
-        command << "git tag -d #{target_tag}" if remove_local
-        command << "git push origin :#{target_tag}" if remove_remote
-
-        if command.empty?
-          UI.message('👉 If you really want to delete a tag, you should to set up remove_local and remove_remote at least one for true!')
-        else
-          result = command.join(' & ')
-          Actions.sh(result)
-          UI.message('Remove git tag Successfully! 🎉')
+        if rmLocalTag
+          # 删除本地标签
+          # git tag -d 标签名称
+          command << "git tag -d #{tagNum}"
         end
+        if rmRemoteTag
+          # 删除远程标签
+          # git push origin :标签名称
+          command << "git push origin :#{tagNum}"
+        end
+
+        result = Actions.sh(command.join('&'))
+        UI.success("Successfully remove tag 🚀 ")
+        return result
+
       end
 
       #####################################################
       # @!group Documentation
       #####################################################
 
+      # 可以使用 fastlane action remove_git_tag 来参看详细描述
+      # 
+
       def self.description
-        'Remove git tag'
+        "删除tag"
       end
 
       def self.details
-        'Remove the local tag or remote tag for a git repertory'
+        "使用当前action来删除本地和远程冲突的tag"
       end
 
       def self.available_options
-        [
+        # Define all options your action supports. 
+        
+        # Below a few examples
+        [ 
           FastlaneCore::ConfigItem.new(key: :tag,
-                                       description: 'The tag to delete',
-                                       is_string: true,
-                                       optional: false),
+                                       description: "输入即将删除的tag",
+                                       is_string: true),
           FastlaneCore::ConfigItem.new(key: :remove_local,
-                                       description: 'If delete local tag',
+                                       description: "是否删除本地tag",
+                                       optional:true,
                                        is_string: false,
-                                       optional: true,
                                        default_value: true),
           FastlaneCore::ConfigItem.new(key: :remove_remote,
-                                       description: 'If delete remote tag',
+                                       description: "是否删除远程tag",
+                                       optional:true,
                                        is_string: false,
-                                       optional: true,
                                        default_value: true)
         ]
       end
 
       def self.output
+        # Define the shared values you are going to provide
+        # Example
+        # [
+        #   ['REMOVE_GIT_TAG_CUSTOM_VALUE', 'A description of what this value contains']
+        # ]
       end
 
       def self.return_value
-        nil
+        # If your method provides a return value, you can describe here what it does
+      end
+
+      def self.authors
+        # So no one will ever forget your contribution to fastlane :) You are awesome btw!
+        ["gongjiahao"]
       end
 
       def self.is_supported?(platform)
-        [:ios, :mac].include?(platform)
-      end
+        # you can do things like
+        # 
+        #  true
+        # 
+        #  platform == :ios
+        # 
+        #  [:ios, :mac].include?(platform)
+        # 
 
-      def self.example_code
-        [
-          'remove_git_tag(tag: "0.1.0") # Delete both local tag and remote tag',
-          'remove_git_tag(tag: "0.1.0", remove_local: false) # Only delete remote tag',
-          'remove_git_tag(tag: "0.1.0", remove_remote: false) # Only delete local tag'
-        ]
-      end
-
-      def self.category
-        :source_control
+        platform == :ios
       end
     end
   end
 end
+
