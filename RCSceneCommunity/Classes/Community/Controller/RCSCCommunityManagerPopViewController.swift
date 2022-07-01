@@ -102,7 +102,7 @@ class RCSCCommunityManagerPopViewController: UIViewController {
         button.setTitleColor(Asset.Colors.black949494.color, for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: -40, left: 16, bottom: 0, right: 0)
         button.titleEdgeInsets = UIEdgeInsets(top: 40, left: -26, bottom: 0, right: 0)
-        button.titleLabel?.font = UIFont.monospacedSystemFont(ofSize: 18, weight: .regular)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         button.titleLabel?.textAlignment = .center
         return button
     }

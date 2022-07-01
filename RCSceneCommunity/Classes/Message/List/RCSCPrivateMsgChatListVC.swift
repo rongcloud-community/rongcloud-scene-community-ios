@@ -31,7 +31,7 @@ class RCSCPrivateMsgChatListVC: RCConversationListViewController {
         view.backgroundColor = UIColor.white
         
         conversationListTableView.separatorStyle = .singleLine
-        conversationListTableView.separatorColor = UIColor("#E3E5E6")
+        conversationListTableView.separatorColor = Asset.Colors.grayE3E5E6.color
         conversationListTableView.separatorInset = UIEdgeInsets(top: 0, left: 71, bottom: 0, right: 0)
         conversationListTableView.backgroundColor = .clear
         conversationListTableView.tableFooterView = UIView()
@@ -94,9 +94,9 @@ class RCSCPrivateMsgChatListVC: RCConversationListViewController {
         }
         cell.selectionStyle = .none
         cell.conversationTitle.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-        cell.conversationTitle.textColor = UIColor(hexString: "#111F2C")
+        cell.conversationTitle.textColor = Asset.Colors.black111F2C.color
         cell.messageContentLabel.font = UIFont.systemFont(ofSize: 14)
-        cell.messageContentLabel.textColor = UIColor(hexString: "#A0A5AB")
+        cell.messageContentLabel.textColor = Asset.Colors.grayA0A5AB.color
         cell.messageCreatedTimeLabel.font = UIFont.systemFont(ofSize: 13)
         cell.messageCreatedTimeLabel.textColor = UIColor(red: 0.73, green: 0.75, blue: 0.79, alpha: 0.6)
         cell.bubbleTipView.bubbleTipBackgroundColor = Asset.Colors.pinkF31D8A.color

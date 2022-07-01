@@ -13,7 +13,9 @@ class RCSCSearchBar: UIView {
         let searchBar = UISearchBar(frame: CGRect.zero)
         searchBar.barStyle = .default
         searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        searchBar.searchTextField.backgroundColor = Asset.Colors.grayF6F6F6.color
+        if let view = searchBar.value(forKey: "searchBarTextField") as? UIView {
+            view.backgroundColor = Asset.Colors.grayF6F6F6.color
+        }
         searchBar.backgroundColor = Asset.Colors.grayF6F6F6.color
         searchBar.barTintColor = Asset.Colors.grayF6F6F6.color
         searchBar.placeholder = "搜索昵称"

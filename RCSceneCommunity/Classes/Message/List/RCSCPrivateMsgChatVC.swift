@@ -27,10 +27,9 @@ class RCSCPrivateMsgChatVC: RCConversationViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor(hexString: "#F5F6F9")
+        view.backgroundColor = Asset.Colors.whiteF5F6F9.color
         view.subviews.forEach {
-            $0.backgroundColor = UIColor(hexString: "#F5F6F9")
+            $0.backgroundColor = Asset.Colors.whiteF5F6F9.color
         }
         
         refreshUserInfo()
@@ -76,7 +75,7 @@ class RCSCPrivateMsgChatVC: RCConversationViewController {
         if let cell = cell as? RCTextMessageCell {
             if cell.model.messageDirection == .MessageDirection_SEND {
                 cell.textLabel.textColor = .white
-                cell.bubbleBackgroundView.tintColor = UIColor(hexString: "#7983FE")
+                cell.bubbleBackgroundView.tintColor = Asset.Colors.blue7983FE.color
                 cell.bubbleBackgroundView.image = cell.bubbleBackgroundView.image?.withRenderingMode(.alwaysTemplate)
             } else {
                 cell.textLabel.textColor = .black
@@ -93,7 +92,7 @@ class RCSCPrivateMsgChatVC: RCConversationViewController {
             if cell.model.messageDirection == .MessageDirection_SEND {
                 cell.voiceDurationLabel.textColor = .white
                 tempImageView.tintColor = .white
-                cell.bubbleBackgroundView.tintColor = UIColor(hexString: "#7983FE")
+                cell.bubbleBackgroundView.tintColor = Asset.Colors.blue7983FE.color
                 cell.bubbleBackgroundView.image = cell.bubbleBackgroundView.image?.withRenderingMode(.alwaysTemplate)
             } else {
                 cell.voiceDurationLabel.textColor = .black

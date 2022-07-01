@@ -107,13 +107,13 @@ class RCSCTmpInputView: UIView {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHidden), name: RCSCTmpInputView.keyboardDidHideNotification, object: nil)
         
-        lineView.backgroundColor = UIColor(red: 229 / 255.0, green: 232 / 255.0, blue: 239 / 255.0, alpha: 1)
+        lineView.backgroundColor = Asset.Colors.grayE5E8EF.color
         lineView.snp.makeConstraints { make in
             make.left.top.right.equalToSuperview()
             make.height.equalTo(0.5)
         }
         
-        textContainerView.backgroundColor = UIColor(white: 243 / 255.0, alpha: 1)
+        textContainerView.backgroundColor =  Asset.Colors.grayF3F3F3.color
         textContainerView.layer.cornerRadius = 20
         textContainerView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(10)
@@ -134,7 +134,7 @@ class RCSCTmpInputView: UIView {
         textView.font = .systemFont(ofSize: 14)
         textView.placeholder = "聊点什么..."
         textView.placeholderColor = .black.alpha(0.2)
-        textView.backgroundColor = UIColor(white: 243 / 255.0, alpha: 1)
+        textView.backgroundColor = Asset.Colors.grayF3F3F3.color
         textView.returnKeyType = .send
         
         emojiButton.setImage(Asset.Images.emoji.image, for: .normal)

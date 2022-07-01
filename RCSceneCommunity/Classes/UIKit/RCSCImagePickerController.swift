@@ -36,7 +36,7 @@ class RCSCImagePickerController: NSObject {
     
     lazy var imagePickerConfig: PickerConfiguration = {
         let config = PickerConfiguration()
-        config.modalPresentationStyle = .fullScreen
+        //config.modalPresentationStyle = .fullScreen
         config.selectOptions = .photo
         config.selectMode = .single
         config.maximumSelectedPhotoCount = 4
