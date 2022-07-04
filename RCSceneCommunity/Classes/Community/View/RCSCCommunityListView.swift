@@ -140,19 +140,32 @@ extension RCSCCommunityListView: RCSCCommunityDataSourceDelegate {
         guard let list = list else {
             return
         }
+        
         dataSource[1] = list
+        
+        if dataSource[0].count > 0, let record = dataSource[0].first, let index = list.firstIndex(where: { $0.communityUid == record.communityUid }) {
+            dataSource[0].removeAll()
+        }
+        
         collectionView.reloadData()
+        
         if dataSource[0].count > 0 {
             collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
-        } else if RCSCCommunityManager.manager.detailData != nil {
-            let currentDetail = RCSCCommunityManager.manager.currentDetail
-            for (index, record) in dataSource[1].enumerated() {
-                if record.communityUid == currentDetail.uid {
-                    collectionView.selectItem(at: IndexPath(row: index, section: 1), animated: false, scrollPosition: .top)
-                    break
+            return
+        }
+        
+        if RCSCCommunityManager.manager.detailData != nil {
+            if let currentDetail = RCSCCommunityManager.manager.detailData {
+                for (index, record) in dataSource[1].enumerated() {
+                    if record.communityUid == currentDetail.uid {
+                        collectionView.selectItem(at: IndexPath(row: index, section: 1), animated: false, scrollPosition: .top)
+                        return
+                    }
                 }
             }
-        } else {
+        }
+        
+        if list.count > 0 {
             collectionView.selectItem(at: IndexPath(row: 0, section: 1), animated: false, scrollPosition: .top)
         }
     }

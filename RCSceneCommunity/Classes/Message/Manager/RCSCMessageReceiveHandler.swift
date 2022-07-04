@@ -51,7 +51,9 @@ extension RCSCSystemMessageType {
     }
     
     func handleAlertNotification(message: String?, communityId: String, fromUserID: String, type: RCSCSystemMessageType) {
-        guard let _ = RCSCCommunityManager.manager.detailData else { return }
+        guard let currentCommunityId = RCSCCommunityManager.manager.detailData?.uid else {
+            return debugPrint("current community data is not initialized")
+        }
         if communityId == RCSCCommunityManager.manager.currentDetail.uid {
             if let viewController = RCSCCommunityManager.manager.currentConversationViewController {
                 let title = type == .dissolve ? "当前社区已经解散" : "您已经被踢出该社区"
@@ -74,7 +76,9 @@ extension RCSCSystemMessageType {
 
 extension RCSCChannelNoticeMessageType {
     func handleCommunityChannelNoticeMessage(noticeMessage: RCSCChannelNoticeMessage, communityId: String) {
-        let currentCommunityId = RCSCCommunityManager.manager.currentDetail.uid
+        guard let currentCommunityId = RCSCCommunityManager.manager.detailData?.uid else {
+            return debugPrint("current community data is not initialized")
+        }
         switch self {
         case .mark, .deleteMark:
             RCSCMarkMessageHub.receiveMarkMessage(markMessage: noticeMessage)
