@@ -39,7 +39,6 @@ open class RCSCHomeViewController: RCSCBaseViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        UINavigationBar.defaultAppearance()
         initializedModule()
         registerServiceListener()
         registerNotification()

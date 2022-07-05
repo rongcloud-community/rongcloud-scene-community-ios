@@ -11,6 +11,7 @@ open class RCSCBaseViewController:UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationController?.navigationBar.defaultAppearance()
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
