@@ -76,6 +76,7 @@ class RCSCCommunityManagerPopViewController: UIViewController {
         let avatar = UIImageView()
         avatar.layer.masksToBounds = true
         avatar.layer.cornerRadius = 29
+        avatar.contentMode = .scaleAspectFill
         avatar.backgroundColor = Asset.Colors.green55BD53.color
         return avatar
     }()
