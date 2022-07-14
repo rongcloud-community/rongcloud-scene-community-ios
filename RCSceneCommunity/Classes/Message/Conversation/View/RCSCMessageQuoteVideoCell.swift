@@ -135,13 +135,23 @@ class RCSCMessageQuoteVideoCell: RCSCMessageBaseCell {
     override func updateUI(_ message: RCMessage) -> RCSCCellProtocol {
         super.updateUI(message)
         guard let content = message.content as? RCReferenceMessage,
-              let refMsg = content.referMsg as? RCSightMessage
+              let refMsg = content.referMsg as? RCSightMessage,
+              let referUserId = content.referMsgUserId
         else { return self }
         setContentText(content: content, hasSuffix: message.hasChanged)
-        //xuefengtodo
-        //quoteNameLabel.text = "\(name)："
+        fetchReferName(message: message, userId: referUserId)
         quoteContentImageView.image = refMsg.thumbnailImage
         return self
+    }
+    
+    func fetchReferName(message: RCMessage, userId: String) {
+        RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: userId) { userInfo in
+            if let userInfo = userInfo {
+                DispatchQueue.main.async {
+                    self.quoteNameLabel.text = "\(userInfo.nickName)："
+                }
+            }
+        }
     }
     
     private func setContentText(content: RCReferenceMessage, hasSuffix: Bool) {

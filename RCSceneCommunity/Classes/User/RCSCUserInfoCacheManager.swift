@@ -60,11 +60,20 @@ class RCSCUserInfoCacheManager: NSObject, NSCacheDelegate {
     }
     
     private func getUserInfo(with communityId: String, userId: String, completion: ((RCSCCommunityUserInfo?) -> Void)? = nil) -> RCSCCommunityUserInfo? {
+        if userId == "_SYSTEM_" {
+            if let completion = completion {
+                completion(nil)
+            }
+            return nil
+        }
         let key = communityId+userId
         guard let userInfo = cache.object(forKey: key as AnyObject) as? RCSCCommunityUserInfo  else {
             request(key: key) {[weak self] res in
-                if !res, let completion = completion {
-                    return completion(nil)
+                if !res {
+                    if let completion = completion {
+                        completion(nil)
+                    }
+                    return
                 }
                 RCSCCommunityUserInfoApi(communityUid: communityId, userUid: userId).fetch().success { object in
                     self?.removeKey(key: key)

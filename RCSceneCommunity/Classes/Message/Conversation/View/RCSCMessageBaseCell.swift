@@ -97,18 +97,6 @@ class RCSCMessageBaseCell: UICollectionViewCell, RCSCCellProtocol  {
     func updateUI(_ message: RCMessage) -> RCSCCellProtocol {
         self.message = message
         
-//        if let content = message.content, let senderUserInfo = content.senderUserInfo {
-//            var imageUrl = ""
-//            if let userInfo = RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: message.senderUserId ?? content.senderUserInfo.userId) {
-//                nameLabel.text = userInfo.nickName
-//                imageUrl = userInfo.portrait ?? ""
-//            } else {
-//                nameLabel.text = senderUserInfo.name ?? ""
-//                imageUrl = senderUserInfo.portraitUri ?? ""
-//            }
-//            avatarImageView.setImage(with: imageUrl, placeholder: Asset.Images.defaultAvatarIcon.image)
-//        }
-        
         timeLabel.text = message.sentTime.timeString
         
         sendFailView.isHidden = message.sentStatus != .SentStatus_FAILED

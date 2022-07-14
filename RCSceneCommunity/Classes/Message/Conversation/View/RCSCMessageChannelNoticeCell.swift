@@ -80,6 +80,18 @@ class RCSCMessageChannelNoticeCell: RCSCMessageBaseCell {
         }
     }
     
+    override var nameString: String {
+        didSet {
+            nameLabel.text = "系统消息"
+        }
+    }
+    
+    override var avatarString: String {
+        didSet {
+            avatarImageView.image = Asset.Images.messageSystemAvatar.image
+        }
+    }
+    
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
        
         let width = layoutAttributes.frame.width

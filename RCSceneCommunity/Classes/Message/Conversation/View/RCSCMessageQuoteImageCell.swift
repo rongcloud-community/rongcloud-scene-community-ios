@@ -123,11 +123,11 @@ class RCSCMessageQuoteImageCell: RCSCMessageBaseCell {
     override func updateUI(_ message: RCMessage) -> RCSCCellProtocol {
         super.updateUI(message)
         guard let content = message.content as? RCReferenceMessage,
-              let refMsg = content.referMsg as? RCImageMessage
+              let refMsg = content.referMsg as? RCImageMessage,
+              let referUserId = content.referMsgUserId
         else { return self }
         setContentText(content: content, hasSuffix: message.hasChanged)
-        //xuefengtodo
-        //quoteNameLabel.text = "\(name)："
+        fetchReferName(message: message, userId: referUserId)
         if let path = refMsg.realLocalPath(),
            let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
            let image = UIImage(data: data) {
@@ -138,6 +138,16 @@ class RCSCMessageQuoteImageCell: RCSCMessageBaseCell {
             quoteContentImageView.setImage(with: url)
         }
         return self
+    }
+    
+    func fetchReferName(message: RCMessage, userId: String) {
+        RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: userId) { userInfo in
+            if let userInfo = userInfo {
+                DispatchQueue.main.async {
+                    self.quoteNameLabel.text = "\(userInfo.nickName)："
+                }
+            }
+        }
     }
     
     private func setContentText(content: RCReferenceMessage, hasSuffix: Bool) {

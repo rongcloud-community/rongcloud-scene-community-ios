@@ -621,13 +621,14 @@ extension RCSCConversationViewController: UICollectionViewDataSource, UICollecti
             return cell
         }
         
-        RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: message.senderUserId ?? "") { userInfo in
-            guard let userInfo = userInfo else { return }
-            cell.nameString = userInfo.nickName
-            cell.avatarString = userInfo.portrait
-        }
+        let _ = cell.updateUI(message)
         
-        return cell.updateUI(message)
+        let userInfo = RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: message.senderUserId, completion: nil)
+            
+        cell.nameString = userInfo?.nickName ?? ""
+        cell.avatarString = userInfo?.portrait ?? ""
+        
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

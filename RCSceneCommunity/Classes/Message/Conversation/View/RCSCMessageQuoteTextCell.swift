@@ -104,18 +104,28 @@ class RCSCMessageQuoteTextCell: RCSCMessageBaseCell {
     override func updateUI(_ message: RCMessage) -> RCSCCellProtocol {
         super.updateUI(message)
         guard let content = message.content as? RCReferenceMessage,
-              let refMsg = content.referMsg as? RCMessageContent
+              let referUserId = content.referMsgUserId
         else { return self }
         setContentText(content: content, hasSuffix: message.hasChanged)
+        fetchReferName(message: message, userId: referUserId, content: content)
+        return self
+    }
+    
+    func fetchReferName(message: RCMessage, userId: String, content: RCReferenceMessage) {
         var text = ""
         if let textContent = content.referMsg as? RCTextMessage {
             text = textContent.content ?? ""
         } else if let referContent = content.referMsg as? RCReferenceMessage {
             text = referContent.content ?? ""
         }
-        //xuefengtodo
-        //quoteTextLabel.text = "\(name)：\(text)"
-        return self
+        self.quoteTextLabel.text = text
+        RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: userId) { userInfo in
+            if let userInfo = userInfo {
+                DispatchQueue.main.async {
+                    self.quoteTextLabel.text = "\(userInfo.nickName)：\(text)"
+                }
+            }
+        }
     }
     
     private func setContentText(content: RCReferenceMessage, hasSuffix: Bool) {
