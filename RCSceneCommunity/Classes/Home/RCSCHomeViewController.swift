@@ -54,6 +54,7 @@ open class RCSCHomeViewController: RCSCBaseViewController {
                 break
             }
         })
+        //chore
     }
     
     open override func viewWillAppear(_ animated: Bool) {
