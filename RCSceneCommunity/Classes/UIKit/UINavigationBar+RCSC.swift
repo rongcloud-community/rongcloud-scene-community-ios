@@ -18,12 +18,5 @@ public extension UINavigationBar {
         tintColor = .black
         barTintColor = .white
         shadowImage = UIImage.createImageWithColor(color: Asset.Colors.grayE5E8EF.color)
-//        if #available(iOS 15.0, *) {
-//            let navBarAppearance = UINavigationBarAppearance()
-//            navBarAppearance.configureWithOpaqueBackground()
-//            navBarAppearance.shadowImage = UIImage.createImageWithColor(color: Asset.Colors.grayE5E8EF.color)
-//            standardAppearance = navBarAppearance
-//            scrollEdgeAppearance = navBarAppearance
-//        }
     }
 }

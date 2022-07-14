@@ -12,6 +12,13 @@ open class RCSCBaseViewController:UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationController?.navigationBar.defaultAppearance()
+        if #available(iOS 15.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.shadowImage = UIImage.createImageWithColor(color: Asset.Colors.grayE5E8EF.color)
+            navigationController?.navigationBar.standardAppearance = navBarAppearance
+            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        }
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
