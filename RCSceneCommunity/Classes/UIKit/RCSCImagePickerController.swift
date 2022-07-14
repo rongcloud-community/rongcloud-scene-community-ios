@@ -44,6 +44,7 @@ class RCSCImagePickerController: NSObject {
         config.allowLoadPhotoLibrary = true
         config.photoList.sort = .desc
         config.photoList.allowAddCamera = true
+        config.photoList.finishSelectionAfterTakingPhoto = true
         return config
     }()
     
