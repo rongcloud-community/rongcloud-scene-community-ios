@@ -24,7 +24,6 @@ class RCSCCommunityListCell: UICollectionViewCell {
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Asset.Colors.redF31D8A.color
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 27

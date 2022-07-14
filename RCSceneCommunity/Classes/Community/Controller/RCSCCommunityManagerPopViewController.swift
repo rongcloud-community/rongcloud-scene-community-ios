@@ -181,6 +181,7 @@ class RCSCCommunityManagerPopViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .clear
         buildSubViews()
+        NotificationCenter.default.addObserver(self, selector: #selector(communityDetailChanged), name: RCSCCommunityDetailChangedNotification,object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -281,6 +282,18 @@ class RCSCCommunityManagerPopViewController: UIViewController {
             }
         }
         
+    }
+    
+    @objc private func communityDetailChanged(noti: Notification) {
+        if let communityId = noti.object as? String, RCSCCommunityManager.manager.currentDetail.uid == communityId {
+            RCSCCommunityDetailApi(communityId: communityId).fetch().success { object in
+                if let object = object {
+                    DispatchQueue.main.async {
+                        self.avatarUrl = object.portrait ?? ""
+                    }
+                }
+            }
+        }
     }
 }
 

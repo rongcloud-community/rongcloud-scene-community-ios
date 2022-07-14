@@ -77,7 +77,7 @@ open class RCSCHomeViewController: RCSCBaseViewController {
     }
     
     func registerNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(notificationAction), name: RCSCCommunityDetailChangedNotification,object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(communityDetailChanged), name: RCSCCommunityDetailChangedNotification,object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(addTmpCommunity(notification:)), name: RCSCDiscoverViewControllerAddTmpCommunityNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCommunitySystemMessage(notification:)), name: RCSCCommunityReceiveSystemMessageNotification, object: nil)
     }
@@ -117,12 +117,13 @@ open class RCSCHomeViewController: RCSCBaseViewController {
     }
     
     //MARK: - 修改数据后刷新社区信息
-    @objc private func notificationAction(noti: Notification) {
+    @objc private func communityDetailChanged(noti: Notification) {
         if let communityId = noti.object as? String, RCSCCommunityManager.manager.currentDetail.uid == communityId {
             RCSCCommunityManager.manager.fetchDetail(communityId: communityId)
         } else {
             self.communityDetailView.currentDetail =  RCSCCommunityManager.manager.currentDetail 
         }
+        fetchCommunityListData()
     }
     
     @objc private func receiveCommunitySystemMessage(notification: Notification) {
