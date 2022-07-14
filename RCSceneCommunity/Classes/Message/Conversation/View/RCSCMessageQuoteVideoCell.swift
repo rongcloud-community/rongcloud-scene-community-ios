@@ -135,11 +135,11 @@ class RCSCMessageQuoteVideoCell: RCSCMessageBaseCell {
     override func updateUI(_ message: RCMessage) -> RCSCCellProtocol {
         super.updateUI(message)
         guard let content = message.content as? RCReferenceMessage,
-              let refMsg = content.referMsg as? RCSightMessage,
-              let name = refMsg.senderUserInfo.name
+              let refMsg = content.referMsg as? RCSightMessage
         else { return self }
         setContentText(content: content, hasSuffix: message.hasChanged)
-        quoteNameLabel.text = "\(name)："
+        //xuefengtodo
+        //quoteNameLabel.text = "\(name)："
         quoteContentImageView.image = refMsg.thumbnailImage
         return self
     }

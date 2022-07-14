@@ -620,6 +620,13 @@ extension RCSCConversationViewController: UICollectionViewDataSource, UICollecti
             self.jumpMessage = nil
             return cell
         }
+        
+        RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: message.senderUserId ?? "") { userInfo in
+            guard let userInfo = userInfo else { return }
+            cell.nameString = userInfo.nickName
+            cell.avatarString = userInfo.portrait
+        }
+        
         return cell.updateUI(message)
     }
     

@@ -104,8 +104,7 @@ class RCSCMessageQuoteTextCell: RCSCMessageBaseCell {
     override func updateUI(_ message: RCMessage) -> RCSCCellProtocol {
         super.updateUI(message)
         guard let content = message.content as? RCReferenceMessage,
-              let refMsg = content.referMsg as? RCMessageContent,
-              let name = refMsg.senderUserInfo.name
+              let refMsg = content.referMsg as? RCMessageContent
         else { return self }
         setContentText(content: content, hasSuffix: message.hasChanged)
         var text = ""
@@ -114,7 +113,8 @@ class RCSCMessageQuoteTextCell: RCSCMessageBaseCell {
         } else if let referContent = content.referMsg as? RCReferenceMessage {
             text = referContent.content ?? ""
         }
-        quoteTextLabel.text = "\(name)：\(text)"
+        //xuefengtodo
+        //quoteTextLabel.text = "\(name)：\(text)"
         return self
     }
     

@@ -89,7 +89,7 @@ extension RCRecallNotificationMessage: RCSCMessageProtocol {
 
 extension RCReferenceMessage: RCSCMessageProtocol {
     func view() -> RCSCCellProtocol.Type {
-        if let message = RCSCConversationMessageManager.getMessageByUid(messageUid: referMsgUid),
+        if referMsgUid != nil, let message = RCSCConversationMessageManager.getMessageByUid(messageUid: referMsgUid),
            message.content is RCRecallNotificationMessage {
             return RCSCMessageQuoteRecallCell.self
         }
@@ -106,7 +106,7 @@ extension RCReferenceMessage: RCSCMessageProtocol {
     
     func identifier() -> String {
         
-        if let message = RCSCConversationMessageManager.getMessageByUid(messageUid: referMsgUid),
+        if referMsgUid != nil, let message = RCSCConversationMessageManager.getMessageByUid(messageUid: referMsgUid),
            message.content is RCRecallNotificationMessage {
             return "RCSC:Reference:Recall:Msg:Cell"
         }

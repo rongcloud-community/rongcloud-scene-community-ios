@@ -19,6 +19,18 @@ class RCSCMessageBaseCell: UICollectionViewCell, RCSCCellProtocol  {
         return sendFailView
     }()
     
+    var nameString: String = "" {
+        didSet {
+            nameLabel.text = nameString
+        }
+    }
+    
+    var avatarString: String = "" {
+        didSet {
+            avatarImageView.setImage(with: avatarString, placeholder: Asset.Images.defaultAvatarIcon.image)
+        }
+    }
+    
     var type: RCSCMessageType?
     
     var message: RCMessage?
@@ -85,17 +97,17 @@ class RCSCMessageBaseCell: UICollectionViewCell, RCSCCellProtocol  {
     func updateUI(_ message: RCMessage) -> RCSCCellProtocol {
         self.message = message
         
-        if let content = message.content, let senderUserInfo = content.senderUserInfo {
-            var imageUrl = ""
-            if let userInfo = RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: message.senderUserId ?? content.senderUserInfo.userId) {
-                nameLabel.text = userInfo.nickName
-                imageUrl = userInfo.portrait ?? ""
-            } else {
-                nameLabel.text = senderUserInfo.name ?? ""
-                imageUrl = senderUserInfo.portraitUri ?? ""
-            }
-            avatarImageView.setImage(with: imageUrl, placeholder: Asset.Images.defaultAvatarIcon.image)
-        }
+//        if let content = message.content, let senderUserInfo = content.senderUserInfo {
+//            var imageUrl = ""
+//            if let userInfo = RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: message.senderUserId ?? content.senderUserInfo.userId) {
+//                nameLabel.text = userInfo.nickName
+//                imageUrl = userInfo.portrait ?? ""
+//            } else {
+//                nameLabel.text = senderUserInfo.name ?? ""
+//                imageUrl = senderUserInfo.portraitUri ?? ""
+//            }
+//            avatarImageView.setImage(with: imageUrl, placeholder: Asset.Images.defaultAvatarIcon.image)
+//        }
         
         timeLabel.text = message.sentTime.timeString
         

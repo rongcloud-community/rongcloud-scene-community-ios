@@ -30,13 +30,16 @@ class RCSCUserInfoCacheManager: NSObject, NSCacheDelegate {
         cache.totalCostLimit = 1000
     }
     
-    func request(key: String, execute: @escaping (()->Void)) {
+    func request(key: String, execute: @escaping ((Bool)->Void)) {
         queue.async { [weak self] in
             guard let self = self else { return }
             if (!self.pool.contains(key)) {
                 self.addKey(key: key)
-                execute()
+                execute(true)
+            } else {
+                execute(false)
             }
+            
         }
     }
     
@@ -59,7 +62,10 @@ class RCSCUserInfoCacheManager: NSObject, NSCacheDelegate {
     private func getUserInfo(with communityId: String, userId: String, completion: ((RCSCCommunityUserInfo?) -> Void)? = nil) -> RCSCCommunityUserInfo? {
         let key = communityId+userId
         guard let userInfo = cache.object(forKey: key as AnyObject) as? RCSCCommunityUserInfo  else {
-            request(key: key) {[weak self] in
+            request(key: key) {[weak self] res in
+                if !res, let completion = completion {
+                    return completion(nil)
+                }
                 RCSCCommunityUserInfoApi(communityUid: communityId, userUid: userId).fetch().success { object in
                     self?.removeKey(key: key)
                     guard let self = self, let object = object else { return }

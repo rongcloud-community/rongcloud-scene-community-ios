@@ -21,6 +21,8 @@ extension RCSCChannelNoticeMessageType {
             return "\(name) 解除禁言"
         case .deleteMark:
             return "\(name) 删除了一条标注消息"
+        case .quit:
+            return "\(name) 退出了社区"
         }
     }
 }

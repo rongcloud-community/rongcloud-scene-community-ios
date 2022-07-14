@@ -7,13 +7,14 @@
 
 import Foundation
 
-//1代表加入消息，2代表标记消息，3代表被禁言，4代表解除禁言,5删除标记消息
+//1代表加入消息，2代表标记消息，3代表被禁言，4代表解除禁言,5删除标记消息,6.主动退出社区
 public enum RCSCChannelNoticeMessageType: Int, Codable {
     case join = 1
     case mark = 2
     case mute = 3
     case releaseMute = 4
     case deleteMark = 5
+    case quit = 6
 }
 
 public struct RCSCChannelNoticeMessageContent: Codable {
