@@ -265,8 +265,12 @@ class RCSCCommunityDetailView: UIView {
     }
     
     @objc private func joinCommunity() {
-        if let currentDetail = currentDetail, currentDetail.communityUser.auditStatus == .join || currentDetail.communityUser.auditStatus == .reject {
-            RCSCCommunityService.service.joinCommunity(communityId: currentDetail.uid)
+        if let currentDetail = currentDetail, currentDetail.communityUser.auditStatus == .join || currentDetail.communityUser.auditStatus == .reject {            
+            RCSCCommunityJoinApi(communityId: currentDetail.uid).fetch().success { object in
+                DispatchQueue.main.async {
+                    self.currentDetail?.communityUser.auditStatus = .check
+                }
+            }
         }
     }
 }
