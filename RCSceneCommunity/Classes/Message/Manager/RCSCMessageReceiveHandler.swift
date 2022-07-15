@@ -133,8 +133,12 @@ extension RCSCMessageReceiveHandler: RCIMClientReceiveMessageDelegate {
         } else {
             if let noticeMessage = message.content as? RCSCChannelNoticeMessage {
                 noticeMessage.content?.type?.handleCommunityChannelNoticeMessage(noticeMessage: noticeMessage, communityId: message.targetId)
+                //过滤掉主动退出的系统通知
+                if noticeMessage.content?.type == .quit {
+                    return
+                }
             }
-                
+            
             NotificationCenter.default.post(name: RCSCCommunityBadgeUpdateNotification, object: true, userInfo: [kRCSCCommunityListIdKey: message.targetId as String])
             RCSCLocalNotificationCenter.postNotification(message: message)
             self.delegate?.onReceived(message, left: nLeft, object: object)
