@@ -10,8 +10,17 @@ class RCSCRemoteNotificationHandler: NSObject {
     
     let channel = RCChannelClient.sharedChannelManager()!
     
-    //MARK: 超级群默认通知
-    func setCommunityDefaultNotificationType(communityId: String, level: RCPushNotificationLevel, success: @escaping (() -> Void), error: @escaping ((RCErrorCode) -> Void)) {
+    
+    /// 设置超级群默认通知
+    /// - Parameters:
+    ///   - communityId: 当前社区ID
+    ///   - level: 社区通知等级
+    ///   - success: 成功回调
+    ///   - error: 失败回调
+    func setCommunityDefaultNotificationType(communityId: String,
+                                                   level: RCPushNotificationLevel,
+                                                 success: @escaping (() -> Void),
+                                                   error: @escaping ((RCErrorCode) -> Void)) {
         channel.setUltraGroupConversationDefaultNotificationLevel(communityId, level: level, success: success, error: error)
     }
     
@@ -19,6 +28,14 @@ class RCSCRemoteNotificationHandler: NSObject {
         channel.getUltraGroupConversationDefaultNotificationLevel(communityId, success: success, error: error)
     }
     
+    
+    /// 设置频道默认通知
+    /// - Parameters:
+    ///   - communityId: <#communityId description#>
+    ///   - channelId: <#channelId description#>
+    ///   - level: <#level description#>
+    ///   - success: <#success description#>
+    ///   - error: <#error description#>
     func setChannelDefaultNotificationType(communityId: String, channelId: String, level: RCPushNotificationLevel, success: @escaping (() -> Void), error: @escaping ((RCErrorCode) -> Void)) {
         channel.setUltraGroupConversationChannelDefaultNotificationLevel(communityId, channelId: channelId, level: level, success: success, error: error)
     }
@@ -27,8 +44,16 @@ class RCSCRemoteNotificationHandler: NSObject {
         channel.getUltraGroupConversationChannelDefaultNotificationLevel(communityId, channelId: channelId, success: success, error: error)
     }
     
-    //MARK: 用户设置
-    func setCommunityNotificationType(communityId: String, level: RCPushNotificationLevel, success: @escaping (() -> Void), error: @escaping ((RCErrorCode) -> Void)) {
+    /// 设置超级群通知
+    /// - Parameters:
+    ///   - communityId: 当前社区ID
+    ///   - level: 社区通知等级
+    ///   - success: 成功回调
+    ///   - error: 失败回调
+    func setCommunityNotificationType(communityId: String,
+                                            level: RCPushNotificationLevel,
+                                          success: @escaping (() -> Void),
+                                            error: @escaping ((RCErrorCode) -> Void)) {
         channel.setConversationNotificationLevel(.ConversationType_ULTRAGROUP, targetId: communityId, level: level, success: success, error: error)
     }
     
