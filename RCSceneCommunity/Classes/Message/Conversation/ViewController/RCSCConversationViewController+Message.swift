@@ -205,6 +205,16 @@ extension RCSCConversationViewController: RCSCConversationMessageManagerDelegate
     }
     
     func onFetchHistoryMessagesSuccess(messages: [RCMessage], strategy: RCSCFetchMessageStrategy) {
+        let messages = messages.filter { message in
+            if let noticeMessage = message.content as? RCSCChannelNoticeMessage {
+                noticeMessage.content?.type?.handleCommunityChannelNoticeMessage(noticeMessage: noticeMessage, communityId: message.targetId)
+                //过滤掉主动退出的系统通知
+                if noticeMessage.content?.type == .quit {
+                    return false
+                }
+            }
+            return true
+        }
         SVProgressHUD.dismiss()
         switch strategy {
         case .before: //向上加载
