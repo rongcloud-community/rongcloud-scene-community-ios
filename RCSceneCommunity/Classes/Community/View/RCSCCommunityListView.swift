@@ -137,20 +137,29 @@ extension RCSCCommunityListView: UICollectionViewDelegate {
 
 extension RCSCCommunityListView: RCSCCommunityDataSourceDelegate {
     func updateCommunityList(list: Array<RCSCCommunityListRecord>?) {
+        //TODO: 此处需要重构
         guard let list = list else {
             return
         }
+        
+        var selectFirstItem = list.count > dataSource[1].count
         
         dataSource[1] = list
         
         if dataSource[0].count > 0, let record = dataSource[0].first, let index = list.firstIndex(where: { $0.communityUid == record.communityUid }) {
             dataSource[0].removeAll()
+            selectFirstItem = false
         }
         
         collectionView.reloadData()
         
         if dataSource[0].count > 0 {
             collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
+            return
+        }
+        
+        if selectFirstItem {
+            collectionView.selectItem(at: IndexPath(row: 0, section: 1), animated: false, scrollPosition: .top)
             return
         }
         

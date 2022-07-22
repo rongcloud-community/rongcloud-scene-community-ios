@@ -186,6 +186,7 @@ class RCSCCommunityDetailView: UIView {
         header.moreButtonIsHidden = false
         statusButton.isHidden = currentDetail.communityUser.auditStatus == .joined
         statusButton.setTitle(currentDetail.communityUser.auditStatus.buttonTitle(), for: .normal)
+        header.status = currentDetail.communityUser.auditStatus
         tableView.backgroundView?.isHidden = true
     }
     
@@ -381,9 +382,22 @@ extension RCSCCommunityDetailView: RCSCCommunityDataSourceDelegate {
             return
         }
         
-        if let communityId = list.first?.communityUid, RCSCCommunityManager.manager.detailData == nil {
-            RCSCCommunityManager.manager.fetchDetail(communityId: communityId)
+        if list.count == 0 {
+            //当社区列表为空时，重置社区详情页面为空页面
+            currentDetail = nil
+        } else if let communityId = list.first?.communityUid {
+            var needRefresh = true
+            for record in list {
+                if record.communityUid == currentDetail?.uid {
+                    needRefresh = false
+                }
+            }
+            //如果当前的社区不为空并且为选中状态，不重新拉取数据
+            if (needRefresh) {
+                RCSCCommunityManager.manager.fetchDetail(communityId: communityId)
+            }
         }
+        
     }
     
     func createCommunitySuccess() {
