@@ -55,7 +55,7 @@ class RCSCMessageTextCell: RCSCMessageBaseCell {
         setContentText(content: content, hasSuffix: message.hasChanged)
         
         if message.canIncludeExpansion, let dict = message.expansionDic ,let string = dict[kConversationAtMessageTypeKey] {
-            setAttrText(jsonString: string, text: content.content)
+            setAttrText(jsonString: string, text: content.content, hasSuffix: message.hasChanged)
         }
         
         return self
@@ -82,7 +82,7 @@ class RCSCMessageTextCell: RCSCMessageBaseCell {
         sendFailView.isHidden = code == RCErrorCode.RC_SUCCESS.rawValue
     }
     
-    func setAttrText(jsonString: String, text: String) {
+    func setAttrText(jsonString: String, text: String, hasSuffix: Bool) {
         if let dict = jsonString.getDictionary(), let names = dict.allValues as? Array<String> {
             let ranges = atNickNameRanges(users: names, text: text)
             let attr = NSMutableAttributedString(string: text)
@@ -90,6 +90,10 @@ class RCSCMessageTextCell: RCSCMessageBaseCell {
             guard let ranges = ranges else { return }
             for range in ranges {
                 attr.addAttributes([.foregroundColor: Asset.Colors.blue0099FF.color], range: NSRange(location: range.location, length: range.length - 1))
+            }
+            if (hasSuffix) {
+                let suffix = NSAttributedString(string: "（已编辑）", attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.gray8E8E8E.color, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)])
+                attr.append(suffix)
             }
             contentLabel.attributedText = attr
         }

@@ -98,7 +98,7 @@ class RCSCSectionToolHeader: UIView {
         label.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.equalTo(openButton.snp.trailing).offset(4)
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-40)
         }
         
         addSubview(addButton)

@@ -132,6 +132,13 @@ extension RCSCChannelManagerListCell: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else {
+            return
+        }
+        if text.utf16.count > 16 {
+            SVProgressHUD.showError(withStatus: "名称最多16字符，已超出限制，请修改")
+            return
+        }
         RCSCChannelManagerListCell.currentEditCell = nil
         if let block = endEdit {
             block(self)

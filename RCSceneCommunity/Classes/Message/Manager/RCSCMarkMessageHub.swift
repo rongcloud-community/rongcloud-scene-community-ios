@@ -349,21 +349,6 @@ extension RCSCMarkMessageHub: RCSCMarkMessageHubViewDelegate {
 }
 
 extension RCSCMarkMessageHub: RCSCConversationMessageManagerDelegate {
-    func onMessageRecall(_ messages: [RCMessage]!) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            var deleteCurrent = false
-            for message in messages {
-                if let currentMarkMessage = self.currentMarkMessage, message.messageUId == currentMarkMessage.content?.messageUid {
-                    if let currentHubView = self.currentHubView {
-                        self.updateHubView(hubView: currentHubView)
-                    }
-                }
-                self.removeValueFromMarkMessageTable(message: message)
-            }
-        }
-    }
-    
     //此处仅处理收到消息撤回包含有被引用的消息的相关操作
     func removeValueFromMarkMessageTable(message: RCMessage) {
         if var markMessages = markMessageTable[message.targetId]?[message.channelId] {

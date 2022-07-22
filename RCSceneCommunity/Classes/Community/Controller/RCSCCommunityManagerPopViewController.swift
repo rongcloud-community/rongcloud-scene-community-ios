@@ -211,7 +211,7 @@ class RCSCCommunityManagerPopViewController: UIViewController {
         container.addSubview(communityNameLabel)
         communityNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(avatar.snp.trailing).offset(10)
-            make.trailing.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-20)
             make.centerY.equalTo(avatar).offset(-14)
         }
         

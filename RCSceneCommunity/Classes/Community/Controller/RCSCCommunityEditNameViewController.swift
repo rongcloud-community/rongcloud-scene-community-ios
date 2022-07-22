@@ -97,6 +97,10 @@ class RCSCCommunityEditNameViewController: UIViewController {
             SVProgressHUD.show(withStatus: "communityId 为空,请核实")
             return
         }
+        if name.utf16.count > 16 {
+            SVProgressHUD.showError(withStatus: "名称最多16字符，已超出限制，请修改")
+            return
+        }
         let params = ["name": name]
         SVProgressHUD.show()
         RCSCCommunityManager.manager.updateCommunity(communityId: communityId, param: params)

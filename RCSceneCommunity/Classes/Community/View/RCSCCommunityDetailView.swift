@@ -376,14 +376,13 @@ extension RCSCCommunityDetailView: RCSCCommunityDataSourceDelegate {
     }
     
     func updateCommunityList(list: Array<RCSCCommunityListRecord>?) {
+        
         guard let list = list else {
-            return currentDetail = nil
+            return
         }
         
-        if let communityId = list.first?.communityUid {
+        if let communityId = list.first?.communityUid, RCSCCommunityManager.manager.detailData == nil {
             RCSCCommunityManager.manager.fetchDetail(communityId: communityId)
-        } else {
-            currentDetail = nil
         }
     }
     
@@ -391,12 +390,7 @@ extension RCSCCommunityDetailView: RCSCCommunityDataSourceDelegate {
         //创建社区后会拉取最新的社区列表，当前详情数据置空后 updateCommunityList 会重新拉取新创建的详情
         currentDetail = nil
     }
-    
-    func createChannelSuccess() {
-        guard let communityId = currentDetail?.uid else { return }
-        RCSCCommunityManager.manager.fetchDetail(communityId: communityId)
-    }
-    
+
     func deleteCommunitySuccess(communityId: String) {
         if currentDetail?.uid == communityId {
             currentDetail = nil
