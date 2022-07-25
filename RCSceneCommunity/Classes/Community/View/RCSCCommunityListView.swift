@@ -130,6 +130,10 @@ extension RCSCCommunityListView: UICollectionViewDelegateFlowLayout {
 
 extension RCSCCommunityListView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if dataSource[0].count > 0 && indexPath.section != 0 {
+            dataSource[0].removeAll()
+            collectionView.deleteItems(at: [IndexPath(row: 0, section: 0)])
+        }
         let data = dataSource[indexPath.section][indexPath.row]
         RCSCCommunityManager.manager.fetchDetail(communityId: data.communityUid)
     }
