@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
   s.dependency 'JXSegmentedView'
   s.dependency 'HXPHPicker/Lite'
   # IMLib
-  s.dependency 'RongCloudIM/IMLib', '~> 5.2.4'
+  s.dependency 'RongCloudIM/IMLib', '~> 5.2.0'
 
   # 8 - Sources
   s.source_files = 'RCSceneCommunity/Classes/**/*'
