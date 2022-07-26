@@ -13,9 +13,9 @@ class RCSCHistoryMessageHandler: NSObject {
     
     weak var delegate: RCSCConversationMessageManagerDelegate?
     
-    private let channelClient = RCChannelClient.sharedChannelManager()!
+    private let channelClient = RCChannelClient.sharedChannelManager()
     
-    private let coreClient = RCCoreClient.shared()!
+    private let coreClient = RCCoreClient.shared()
     
     func fetchConversationInitializedHistoryMessage(communityId:String, channelId: String, conversation: RCConversation?) {
         var sendTime = Int64(Date().timeIntervalSince1970 * 1000)

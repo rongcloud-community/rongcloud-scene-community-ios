@@ -8,7 +8,7 @@
 
 class RCSCRemoteNotificationHandler: NSObject {
     
-    let channel = RCChannelClient.sharedChannelManager()!
+    let channel = RCChannelClient.sharedChannelManager()
     
     
     /// 设置超级群默认通知

@@ -23,7 +23,7 @@ class RCSCSystemMessageManager {
     /// 获取初始化历史系统消息
     /// - Parameter callBackMsgArr: 成功回调
     func fetchInitializedHistoryMessage(_ callBackMsgArr:RCSCSysInitMsgClosure?) {
-        let msgArr =   manager?.getHistoryMessages(.ConversationType_SYSTEM, targetId: "_SYSTEM_", oldestMessageId: -1, count: 20) as? [RCMessage]
+        let msgArr = manager.getHistoryMessages(.ConversationType_SYSTEM, targetId: "_SYSTEM_", oldestMessageId: -1, count: 20) as? [RCMessage]
         if let action = callBackMsgArr {
             action(msgArr)
         }        
@@ -36,7 +36,7 @@ class RCSCSystemMessageManager {
     ///   - callBackMsgArr: 成功回调
     func fetchSystemHistoryMessage(_ messageId:Int,
                                 callBackMsgArr:RCSCSysInitMsgClosure?) {
-        let msgArr =   manager?.getHistoryMessages(.ConversationType_SYSTEM, targetId: "_SYSTEM_", oldestMessageId: messageId, count: 20) as? [RCMessage]
+        let msgArr = manager.getHistoryMessages(.ConversationType_SYSTEM, targetId: "_SYSTEM_", oldestMessageId: messageId, count: 20) as? [RCMessage]
         if let action = callBackMsgArr {
             action(msgArr)
         }

@@ -12,9 +12,9 @@ import RongCloudOpenSource
 import RongIMLib
 import SVProgressHUD
 
-let KPRIVATE_UnReadCount_Init = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_PRIVATE.rawValue])
+let KPRIVATE_UnReadCount_Init = RCIMClient.shared().getUnreadCount([NSNumber.init(value: RCConversationType.ConversationType_PRIVATE.rawValue)])
 
-let KSYSTEM_UnReadCount_Init = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_SYSTEM.rawValue])
+let KSYSTEM_UnReadCount_Init = RCIMClient.shared().getUnreadCount([NSNumber.init(value: RCConversationType.ConversationType_SYSTEM.rawValue)])
 
 open class RCSCMessageListViewController: RCSCBaseViewController, RCIMReceiveMessageDelegate {
     
@@ -98,10 +98,10 @@ open class RCSCMessageListViewController: RCSCBaseViewController, RCIMReceiveMes
         buildSubViews()
         var numsDatas = self.numbers
         
-        let count0 = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_PRIVATE.rawValue])
+        let count0 = RCIMClient.shared().getUnreadCount([NSNumber.init(value: RCConversationType.ConversationType_PRIVATE.rawValue)])
         numsDatas[0] = Int(count0)
          
-        let count1 = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_SYSTEM.rawValue])
+        let count1 = RCIMClient.shared().getUnreadCount([NSNumber.init(value: RCConversationType.ConversationType_SYSTEM.rawValue)])
         numsDatas[1] = Int(count1)
         
         self.numbers = numsDatas
@@ -115,10 +115,10 @@ open class RCSCMessageListViewController: RCSCBaseViewController, RCIMReceiveMes
         self.navigationController?.isNavigationBarHidden = false
         var numsDatas = self.numbers
 
-        let count0 = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_PRIVATE.rawValue])
+        let count0 = RCIMClient.shared().getUnreadCount([NSNumber.init(value: RCConversationType.ConversationType_PRIVATE.rawValue)])
         numsDatas[0] = Int(count0)
          
-        let count1 = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_SYSTEM.rawValue])
+        let count1 = RCIMClient.shared().getUnreadCount([NSNumber.init(value: RCConversationType.ConversationType_SYSTEM.rawValue)])
         numsDatas[1] = Int(count1)
         
         self.numbers = numsDatas
@@ -230,7 +230,7 @@ extension RCSCMessageListViewController: JXSegmentedViewDelegate,JXSegmentedList
     //MARK: - 点击私信后刷新角标
     @objc private func notificationRefreshAction(noti: Notification) {
         var numsDatas = self.numbers
-        let count = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_PRIVATE.rawValue])
+        let count = RCIMClient.shared().getUnreadCount([NSNumber.init(value: RCConversationType.ConversationType_PRIVATE.rawValue)])
         numsDatas[0] = Int(count)
         self.numbers = numsDatas
         print("notificationRefreshAction->\(noti)")
@@ -248,10 +248,10 @@ extension RCSCMessageListViewController:RCIMClientReceiveMessageDelegate{
         DispatchQueue.main.async {
             var numsDatas = self.numbers
             if msg.conversationType == .ConversationType_PRIVATE {
-                let count = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_PRIVATE.rawValue])
+                let count = RCIMClient.shared().getUnreadCount([NSNumber.init(value: RCConversationType.ConversationType_PRIVATE.rawValue)])
                 numsDatas[0] = Int(count)
             } else {
-                let count = RCIMClient.shared().getUnreadCount([RCConversationType.ConversationType_SYSTEM.rawValue])
+                let count = RCIMClient.shared().getUnreadCount([NSNumber.init(value: RCConversationType.ConversationType_SYSTEM.rawValue)])
                 numsDatas[1] = Int(count)
             }
             self.numbers = numsDatas

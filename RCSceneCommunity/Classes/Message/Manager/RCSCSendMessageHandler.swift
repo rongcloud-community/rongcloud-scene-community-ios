@@ -37,9 +37,9 @@ class RCSCSendMessageHandler: NSObject {
         }
     }
     
-    private let channel = RCChannelClient.sharedChannelManager()!
+    private let channel = RCChannelClient.sharedChannelManager()
     
-    private let core = RCCoreClient.shared()!
+    private let core = RCCoreClient.shared()
     
     weak var delegate: RCSCConversationMessageManagerDelegate?
     
@@ -124,26 +124,23 @@ class RCSCSendMessageHandler: NSObject {
             }
         }
         
-        let message = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: quoteMessage.targetId, channelId: quoteMessage.channelId, direction: .MessageDirection_SEND, content: newMessage)
-        
-        if let jsonString = jsonString {
-            message?.expansionDic = [kConversationAtMessageTypeKey: jsonString]
+        guard let msg = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: quoteMessage.targetId, channelId: quoteMessage.channelId, direction: .MessageDirection_SEND, content: newMessage) else {
+            debugPrint("消息初始化失败")
+            return
         }
         
-        core.send(message, pushContent: nil, pushData: nil) {[weak self] message in
-            var messageId = 0
-            if let message = message {
-                messageId = message.messageId
-            }
+        if let jsonString = jsonString {
+            msg.expansionDic = [kConversationAtMessageTypeKey: jsonString]
+        }
+        
+        core.send(msg, pushContent: nil, pushData: nil) {[weak self] message in
+            var messageId = message.messageId
             DispatchQueue.main.async {
                 self?.delegate?.onMessageSend(message)
                 NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (messageId, 0))
             }
         } errorBlock: {[weak self] code, message in
-            var messageId = 0
-            if let message = message {
-                messageId = message.messageId
-            }
+            var messageId = message.messageId
             DispatchQueue.main.async {
                 self?.delegate?.onMessageSend(message)
                 NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (messageId, code.rawValue))
@@ -167,29 +164,25 @@ class RCSCSendMessageHandler: NSObject {
             }
         }
         
-        var message = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, direction: .MessageDirection_SEND, content: content)
+        guard let msg = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, direction: .MessageDirection_SEND, content: content) else {
+            return
+        }
         var messagePushConfig = RCMessagePushConfig()
         messagePushConfig.pushTitle = "\(pushContent.communityName)#\(pushContent.channelName)"
         messagePushConfig.pushContent = "\(pushContent.senderName)：\(pushContent.content ?? "")"
-        message?.messagePushConfig = messagePushConfig
+        msg.messagePushConfig = messagePushConfig
         if let jsonString = jsonString {
-            message?.canIncludeExpansion = true
-            message?.expansionDic = [kConversationAtMessageTypeKey: jsonString]
+            msg.canIncludeExpansion = true
+            msg.expansionDic = [kConversationAtMessageTypeKey: jsonString]
         }
         
-        let res = core.send(message, pushContent: nil, pushData: nil) { message in
-            var messageId = 0
-            if let message = message {
-                messageId = message.messageId
-            }
+        let res = core.send(msg, pushContent: nil, pushData: nil) { message in
+            var messageId = message.messageId
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (messageId, 0))
             }
         } errorBlock: { code, message in
-            var messageId = 0
-            if let message = message {
-                messageId = message.messageId
-            }
+            var messageId = message.messageId
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (messageId, code.rawValue))
             }
@@ -206,30 +199,29 @@ class RCSCSendMessageHandler: NSObject {
         //发送成功之后要删除当前缓存的资源文件
         let mediaPath = content.localPath
         
-        var message = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, direction: .MessageDirection_SEND, content: content)
+        guard let msg = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, direction: .MessageDirection_SEND, content: content) else {
+            return
+        }
         
         var messagePushConfig = RCMessagePushConfig()
         messagePushConfig.pushTitle = "\(pushContent.communityName)#\(pushContent.channelName)"
         messagePushConfig.pushContent = "\(pushContent.senderName)：\(pushContent.content ?? "")"
-        message?.messagePushConfig = messagePushConfig
+        msg.messagePushConfig = messagePushConfig
         
-        let res = core.sendMediaMessage(message, pushContent: nil, pushData: nil) { progress, msg in
-            guard let msg = msg else { return }
+        let res = core.sendMediaMessage(msg, pushContent: nil, pushData: nil) { progress, message in
             runOnMainQueue {
-                NotificationCenter.default.post(name: RCSCMediaDataUploadProgressNotification, object: (msg.messageId,progress))
+                NotificationCenter.default.post(name: RCSCMediaDataUploadProgressNotification, object: (message.messageId,progress))
             }
-        } successBlock: { msg in
-            guard let msg = msg else { return }
+        } successBlock: { message in
             runOnMainQueue {
                 //let message = self?.core.getMessage(messageId)
                 FileManager.default.deleteMedia(mediaPath: mediaPath)
-                NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (msg.messageId, 0))
+                NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (message.messageId, 0))
                 
             }
-        } errorBlock: {code, msg in
-            guard let msg = msg else { return }
+        } errorBlock: {code, message in
             runOnMainQueue {
-                NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (msg.messageId, code.rawValue))
+                NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (message.messageId, code.rawValue))
             }
         } cancel: { msg in
             
