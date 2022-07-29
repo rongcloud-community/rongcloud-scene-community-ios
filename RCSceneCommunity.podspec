@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   
   # 2 - Version
-  s.version = '0.1.2'
+  s.version = '0.1.3'
   
   # 3 - License
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -33,8 +33,8 @@ Pod::Spec.new do |s|
   s.dependency 'SVProgressHUD'
   
   s.dependency 'ISEmojiView'
-  s.dependency 'GrowingTextView', '0.7.2'
-  s.dependency 'Alamofire', '~> 5.5'
+  s.dependency 'GrowingTextView'
+  s.dependency 'Alamofire'
   s.dependency 'MJRefresh'
 
   s.dependency 'SDWebImage'
