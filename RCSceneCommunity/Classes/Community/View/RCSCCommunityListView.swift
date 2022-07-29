@@ -40,6 +40,7 @@ class RCSCCommunityListView: UIView {
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(self)
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveCommunitySystemMessage(notification:)), name: RCSCCommunityReceiveSystemMessageNotification, object: nil)
         RCSCCommunityManager.manager.registerListener(listener: self)
     }
     
@@ -78,6 +79,24 @@ class RCSCCommunityListView: UIView {
             return dataSource[1][0].communityUid
         }
         return nil
+    }
+    
+    @objc private func receiveCommunitySystemMessage(notification: Notification) {
+        if let type = notification.object as? RCSCSystemMessageType {
+            switch type {
+            case .dissolve:
+                if let record = dataSource[0].first,
+                   let userInfo = notification.userInfo,
+                   let communityId = userInfo[RCSCCommunitySystemMessageIdKey] as? String,
+                   record.communityUid == communityId {
+                    dataSource[0].removeAll()
+                    collectionView.reloadData()
+                }
+                break
+            default:
+                break
+            }
+        }
     }
 }
 
