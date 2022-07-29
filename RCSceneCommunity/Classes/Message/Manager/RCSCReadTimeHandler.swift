@@ -9,7 +9,7 @@ import Foundation
 
 class RCSCReadTimeHandler: NSObject {
     weak var delegate: RCSCConversationMessageManagerDelegate?
-    let channelClient = RCChannelClient.sharedChannelManager()
+    let channelClient = RCChannelClient.sharedChannelManager()!
     
     func syncCommunityReadStatus(communityId: String, channelId: String, time: Int64) {
         channelClient.syncUltraGroupReadStatus(communityId, channelId: channelId, time: time) { [weak self] in

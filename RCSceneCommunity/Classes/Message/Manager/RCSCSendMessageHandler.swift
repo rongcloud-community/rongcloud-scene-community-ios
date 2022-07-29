@@ -37,9 +37,9 @@ class RCSCSendMessageHandler: NSObject {
         }
     }
     
-    private let channel = RCChannelClient.sharedChannelManager()
+    private let channel = RCChannelClient.sharedChannelManager()!
     
-    private let core = RCCoreClient.shared()
+    private let core = RCCoreClient.shared()!
     
     weak var delegate: RCSCConversationMessageManagerDelegate?
     
@@ -134,12 +134,14 @@ class RCSCSendMessageHandler: NSObject {
         }
         
         core.send(msg, pushContent: nil, pushData: nil) {[weak self] message in
+            guard let message = message else { return }
             var messageId = message.messageId
             DispatchQueue.main.async {
                 self?.delegate?.onMessageSend(message)
                 NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (messageId, 0))
             }
         } errorBlock: {[weak self] code, message in
+            guard let message = message else { return }
             var messageId = message.messageId
             DispatchQueue.main.async {
                 self?.delegate?.onMessageSend(message)
@@ -177,11 +179,13 @@ class RCSCSendMessageHandler: NSObject {
         }
         
         let res = core.send(msg, pushContent: nil, pushData: nil) { message in
+            guard let message = message else { return }
             var messageId = message.messageId
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (messageId, 0))
             }
         } errorBlock: { code, message in
+            guard let message = message else { return }
             var messageId = message.messageId
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (messageId, code.rawValue))
@@ -209,10 +213,12 @@ class RCSCSendMessageHandler: NSObject {
         msg.messagePushConfig = messagePushConfig
         
         let res = core.sendMediaMessage(msg, pushContent: nil, pushData: nil) { progress, message in
+            guard let message = message else { return }
             runOnMainQueue {
                 NotificationCenter.default.post(name: RCSCMediaDataUploadProgressNotification, object: (message.messageId,progress))
             }
         } successBlock: { message in
+            guard let message = message else { return }
             runOnMainQueue {
                 //let message = self?.core.getMessage(messageId)
                 FileManager.default.deleteMedia(mediaPath: mediaPath)
@@ -220,6 +226,7 @@ class RCSCSendMessageHandler: NSObject {
                 
             }
         } errorBlock: {code, message in
+            guard let message = message else { return }
             runOnMainQueue {
                 NotificationCenter.default.post(name: RCSCSendMessageCompletionNotification, object: (message.messageId, code.rawValue))
             }

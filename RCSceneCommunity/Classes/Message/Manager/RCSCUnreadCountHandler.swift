@@ -13,9 +13,9 @@ struct RCSCUnreadBadge {
 
 class RCSCUnreadCountHandler: NSObject {
     
-    private let channel = RCChannelClient.sharedChannelManager()
+    private let channel = RCChannelClient.sharedChannelManager()!
     
-    private let core = RCCoreClient.shared()
+    private let core = RCCoreClient.shared()!
     
     private var cache = Dictionary<String, RCSCUnreadBadge>()
     

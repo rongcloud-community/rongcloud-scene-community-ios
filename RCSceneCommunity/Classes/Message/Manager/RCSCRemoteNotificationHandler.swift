@@ -8,7 +8,7 @@
 
 class RCSCRemoteNotificationHandler: NSObject {
     
-    let channel = RCChannelClient.sharedChannelManager()
+    let channel = RCChannelClient.sharedChannelManager()!
     
     
     /// 设置超级群默认通知
@@ -28,14 +28,6 @@ class RCSCRemoteNotificationHandler: NSObject {
         channel.getUltraGroupConversationDefaultNotificationLevel(communityId, success: success, error: error)
     }
     
-    
-    /// 设置频道默认通知
-    /// - Parameters:
-    ///   - communityId: <#communityId description#>
-    ///   - channelId: <#channelId description#>
-    ///   - level: <#level description#>
-    ///   - success: <#success description#>
-    ///   - error: <#error description#>
     func setChannelDefaultNotificationType(communityId: String, channelId: String, level: RCPushNotificationLevel, success: @escaping (() -> Void), error: @escaping ((RCErrorCode) -> Void)) {
         channel.setUltraGroupConversationChannelDefaultNotificationLevel(communityId, channelId: channelId, level: level, success: success, error: error)
     }

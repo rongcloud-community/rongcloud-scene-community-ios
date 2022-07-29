@@ -96,9 +96,6 @@ extension RCSCCommunityMemberVerifySettingViewController: RCSCCommunityDataSourc
     func updateCommunityInfo(_ isSuccess: Bool){
         if isSuccess {
             RCSCCommunityManager.manager.currentDetail.needAudit = selectedAuditType
-//            if selectedAuditType == .free { //???: 放弃本地通知,来回切换,会重复发通知;而后台只会发一次
-//                NotificationCenter.default.post(name: RCSCCommunityReceiveSystemMessageNotificationLocal, object: nil, userInfo: [RCSCCommunitySystemMessageIdKey: RCSCCommunityManager.manager.currentDetail.uid])
-//            }
             SVProgressHUD.showSuccess(withStatus: "保存成功")
         }
     }
