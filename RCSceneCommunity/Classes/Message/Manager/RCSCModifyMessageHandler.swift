@@ -18,9 +18,9 @@ class RCSCModifyMessageHandler: NSObject {
         }
     }
     
-    private let manager = RCChannelClient.sharedChannelManager()!
+    private let manager = RCChannelClient.sharedChannelManager()
     
-    private let core = RCCoreClient.shared()!
+    private let core = RCCoreClient.shared()
     
     weak var delegate: RCSCConversationMessageManagerDelegate?
     

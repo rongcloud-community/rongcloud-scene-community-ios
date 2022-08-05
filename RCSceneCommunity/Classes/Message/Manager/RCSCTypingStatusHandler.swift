@@ -9,7 +9,7 @@ import Foundation
 
 class RCSCTypingStatusHandler: NSObject {
     weak var delegate: RCSCConversationMessageManagerDelegate?
-    let channel = RCChannelClient.sharedChannelManager()!
+    let channel = RCChannelClient.sharedChannelManager()
     
     func sendTypingMessage(communityId: String, channelId: String) {
         channel.sendUltraGroupTypingStatus(communityId, channelId: channelId, typingStatus: .text) {

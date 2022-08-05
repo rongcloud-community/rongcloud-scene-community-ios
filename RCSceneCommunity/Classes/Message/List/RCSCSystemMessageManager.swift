@@ -10,7 +10,7 @@ import Foundation
 
 class RCSCSystemMessageManager {
     
-    private let manager = RCCoreClient.shared()!
+    private let manager = RCCoreClient.shared()
     public typealias RCSCSysInitMsgClosure = ([RCMessage]?) -> Void
     
     
