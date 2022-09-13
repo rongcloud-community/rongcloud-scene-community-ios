@@ -115,7 +115,7 @@ class RCSCConversationViewController: UIViewController {
                 self.clearUnreadStatus()
                 return
             }
-            if self.scrollToMessage(messageUid: firstUnreadMessage.messageUId) {
+            if self.scrollToMessage(messageUid: firstUnreadMessage.messageUId ?? "") {
                 self.clearUnreadStatus()
             } else {
                 self.fetchUnreadMessages()
@@ -382,7 +382,7 @@ class RCSCConversationViewController: UIViewController {
                 
         if communityDetail.creator == user.userId {
             if !(messageProtocol is RCSCChannelNoticeMessage) {
-                RCSCMarkMessageDetailApi(messageUid: message.messageUId).fetch().success { object in
+                RCSCMarkMessageDetailApi(messageUid: message.messageUId ?? "").fetch().success { object in
                     DispatchQueue.main.async {
                         operations.append(.deleMark)
                         if !operations.contains(.delete) {
@@ -584,10 +584,11 @@ extension RCSCConversationViewController: UICollectionViewDataSource, UICollecti
             if !(message.content is RCSCChannelNoticeMessage) {
                 //TODO: 在这里跳转相关的信息从  message 里面拿
                 print("uid = \(message.senderUserId) targetId = \(message.targetId)")
-              guard  let userId = message.senderUserId,let targetId = message.targetId else{
+              guard  let userId = message.senderUserId else{
                   print("error 消息异常")
                   return
               }
+                let targetId = message.targetId
                 let userIds = [userId]
                 SVProgressHUD.show()
                 RCSCGetSysUserInfoApi(userIds).fetch().success { [weak self] object in
@@ -623,7 +624,9 @@ extension RCSCConversationViewController: UICollectionViewDataSource, UICollecti
         
         let _ = cell.updateUI(message)
         
-        let userInfo = RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: message.senderUserId, completion: nil)
+        let userInfo = RCSCUserInfoCacheManager.getUserInfo(with: message.targetId,
+                                                            userId: message.senderUserId ?? "",
+                                                            completion: nil)
             
         cell.nameString = userInfo?.nickName ?? ""
         cell.avatarString = userInfo?.portrait ?? ""

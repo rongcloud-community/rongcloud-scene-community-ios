@@ -75,7 +75,8 @@ extension RCSCConversationViewController {
             for (index,value) in self.messages.enumerated() {
                 if recall {
                     if (value.messageId == message.messageId) {
-                        reloadRecallMessageContainedInReferenceMessage(messageUID: value.messageUId, indexPaths: &indexPaths)
+                        reloadRecallMessageContainedInReferenceMessage(messageUID: value.messageUId ?? "",
+                                                                       indexPaths: &indexPaths)
                         self.messages[index] = message
                         indexPaths.append(IndexPath(row: index, section: 0))
                         break
@@ -142,11 +143,11 @@ extension RCSCConversationViewController {
             
             RCSCConversationMessageManager.recallMessage(message: message)
         case .mark:
-            RCSCCommunityService.service.markMessage(channelId: channelId, messageUid: message.messageUId)
+            RCSCCommunityService.service.markMessage(channelId: channelId, messageUid: message.messageUId ?? "")
             
         case .deleMark:
             if message.messageUId != nil {
-                RCSCCommunityDeleteMarkApi(messageUid: message.messageUId).deleteMark().success { _ in
+                RCSCCommunityDeleteMarkApi(messageUid: message.messageUId ?? "").deleteMark().success { _ in
                     debugPrint("标注消息删除成功")
                 }.failed { error in
                     SVProgressHUD.showError(withStatus: "标注消息删除失败")

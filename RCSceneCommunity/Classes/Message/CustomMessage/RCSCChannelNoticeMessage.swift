@@ -56,7 +56,7 @@ public class RCSCChannelNoticeMessage: RCMessageContent {
         }
     }
   
-    public override class func getObjectName() -> String! { "RCMic:ChannelNotice" }
+    public override class func getObjectName() -> String { "RCMic:ChannelNotice" }
     public override class func persistentFlag() -> RCMessagePersistent { .MessagePersistent_ISCOUNTED }
   
     public override func getSearchableWords() -> [String]! {

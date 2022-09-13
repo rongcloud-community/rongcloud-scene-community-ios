@@ -103,9 +103,8 @@ class RCSCMessageQuoteTextCell: RCSCMessageBaseCell {
     
     override func updateUI(_ message: RCMessage) -> RCSCCellProtocol {
         super.updateUI(message)
-        guard let content = message.content as? RCReferenceMessage,
-              let referUserId = content.referMsgUserId
-        else { return self }
+        guard let content = message.content as? RCReferenceMessage else { return self }
+        let referUserId = content.referMsgUserId
         setContentText(content: content, hasSuffix: message.hasChanged)
         fetchReferName(message: message, userId: referUserId, content: content)
         return self
@@ -129,7 +128,8 @@ class RCSCMessageQuoteTextCell: RCSCMessageBaseCell {
     }
     
     private func setContentText(content: RCReferenceMessage, hasSuffix: Bool) {
-        if let text = content.content {
+        let text = content.content
+        if text.count > 0 {
             
             var text = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.black282828.color])
             var suffix = NSAttributedString(string: "（已编辑）", attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.gray8E8E8E.color, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)])

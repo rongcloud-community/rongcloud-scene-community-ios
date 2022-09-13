@@ -22,7 +22,7 @@ class RCSCLocalNotificationCenter {
     }
     
     private static func _postNotification(message: RCMessage) {
-        guard let messagePushConfig = message.messagePushConfig else { return }
+        let messagePushConfig = message.messagePushConfig
         
         let title = messagePushConfig.pushTitle ?? ""
         var content = messagePushConfig.pushContent ?? ""

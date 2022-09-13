@@ -40,7 +40,7 @@ class RCSCUserInfoUpdateMessage: RCMessageContent {
         }
     }
   
-    public override class func getObjectName() -> String! { "RCMic:UserUpdate" }
+    public override class func getObjectName() -> String { "RCMic:UserUpdate" }
     public override class func persistentFlag() -> RCMessagePersistent { .MessagePersistent_NONE }
   
     public override func getSearchableWords() -> [String]! {

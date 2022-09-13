@@ -135,9 +135,9 @@ class RCSCMessageQuoteVideoCell: RCSCMessageBaseCell {
     override func updateUI(_ message: RCMessage) -> RCSCCellProtocol {
         super.updateUI(message)
         guard let content = message.content as? RCReferenceMessage,
-              let refMsg = content.referMsg as? RCSightMessage,
-              let referUserId = content.referMsgUserId
+              let refMsg = content.referMsg as? RCSightMessage
         else { return self }
+        let referUserId = content.referMsgUserId
         setContentText(content: content, hasSuffix: message.hasChanged)
         fetchReferName(message: message, userId: referUserId)
         quoteContentImageView.image = refMsg.thumbnailImage
@@ -155,7 +155,8 @@ class RCSCMessageQuoteVideoCell: RCSCMessageBaseCell {
     }
     
     private func setContentText(content: RCReferenceMessage, hasSuffix: Bool) {
-        if let text = content.content {
+        let text = content.content
+        if text.count > 0 {
             
             var text = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.black282828.color])
             var suffix = NSAttributedString(string: "（已编辑）", attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.gray8E8E8E.color, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)])

@@ -25,7 +25,7 @@ class RCSCHistoryMessageHandler: NSObject {
         let option = RCHistoryMessageOption()
         option.recordTime = sendTime + 1
         option.count = 20
-        option.order = RCHistoryMessageOrderDesc
+        option.order = .desc
         channelClient.getMessages(.ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, option: option) { messages, timestamp, isRemaining, code in
             DispatchQueue.main.async {
                 if let messages = messages as? Array<RCMessage> {
@@ -41,7 +41,7 @@ class RCSCHistoryMessageHandler: NSObject {
         let option = RCHistoryMessageOption()
         option.recordTime = sendTime
         option.count = 20
-        option.order = strategy == .before ? RCHistoryMessageOrderDesc : RCHistoryMessageOrderAsc
+        option.order = (strategy == .before) ? .desc : .asc
         channelClient.getMessages(.ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, option: option) { messages, timestamp, isRemaining, code in
             DispatchQueue.main.async {
                 if let messages = messages as? Array<RCMessage> {

@@ -57,7 +57,7 @@ class RCSCUnreadCountHandler: NSObject {
         var unreadCount: Int32 = 0
         if let res = channel.getConversationList(forAllChannel: .ConversationType_ULTRAGROUP, targetId: communityId) {
             for conversation in res {
-                if conversation.channelId.count == 0 { continue }
+                if conversation.channelId?.count == 0 { continue }
                 unreadCount = unreadCount + conversation.unreadMessageCount
             }
         }

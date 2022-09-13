@@ -40,7 +40,9 @@ extension RCSCMarkMessageViewController: RCSCConversationMessageManagerDelegate 
                   let messageUid = channelMessage.content?.messageUid,
                   let rcMessage = RCSCConversationMessageManager.fetchMessageByMessageUid(messageUid: messageUid)
             else { return }
-            let markMessage = RCSCMarkMessage(uid: rcMessage.senderUserId, channelUid: rcMessage.channelId, messageUid: rcMessage.messageUId)
+            let markMessage = RCSCMarkMessage(uid: rcMessage.senderUserId ?? "",
+                                              channelUid: rcMessage.channelId ?? "",
+                                              messageUid: rcMessage.messageUId ?? "")
             insert(markMessage)
         }
     }
@@ -93,7 +95,9 @@ extension RCSCMarkMessageViewController: RCSCConversationMessageManagerDelegate 
     private func convertMessages(messages: Array<RCMessage>) -> Array<RCSCMarkMessage> {
         var markMessages = Array<RCSCMarkMessage>()
         for message in messages {
-            let markMessage = RCSCMarkMessage(uid: message.senderUserId, channelUid: message.channelId, messageUid: message.messageUId)
+            let markMessage = RCSCMarkMessage(uid: message.senderUserId ?? "",
+                                              channelUid: message.channelId ?? "",
+                                              messageUid: message.messageUId ?? "")
             markMessages.append(markMessage)
         }
         return markMessages

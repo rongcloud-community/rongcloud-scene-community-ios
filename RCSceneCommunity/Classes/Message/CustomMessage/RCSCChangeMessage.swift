@@ -35,7 +35,7 @@ class RCSCChangeMessage: RCMessageContent {
         }
     }
   
-    public override class func getObjectName() -> String! { "RCMic:CommunityChange" }
+    public override class func getObjectName() -> String { "RCMic:CommunityChange" }
     public override class func persistentFlag() -> RCMessagePersistent { .MessagePersistent_NONE }
   
     public override func getSearchableWords() -> [String]! {

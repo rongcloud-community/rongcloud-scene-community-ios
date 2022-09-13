@@ -68,27 +68,27 @@ class RCSCSendMessageHandler: NSObject {
     
     //发送文本消息
     func sendTextMessage(text: String, communityId: String, channelId: String, atUsers: Array<RCSCCommunityUser>?, pushContent: RCSCPushContent) {
-        let textMessage = RCTextMessage(content: text)!
+        let textMessage = RCTextMessage(content: text)
         
         sendTextMessage(content: textMessage, communityId: communityId, channelId: channelId, atUsers: atUsers, pushContent: pushContent)
     }
     
     //发送图片消息
     func sendImageMessage(image: UIImage, communityId: String, channelId: String, pushContent: RCSCPushContent) {
-        guard let data = image.sd_imageData(),
-              let imageMessage = RCImageMessage.init(imageData: data)
+        guard let data = image.sd_imageData()
         else {
             return SVProgressHUD.showError(withStatus: "发送图片消息失败, 请检查登录状态，图片数据是否获取成功")
         }
+        let imageMessage = RCImageMessage.init(imageData: data)
         imageMessage.isFull = true
         sendMediaMessage(content: imageMessage, communityId: communityId, channelId: channelId, pushContent: pushContent)
     }
     
     //发送视频消息
     func sendVideoMessage(videoPath: String, thumbnail: UIImage, duration: UInt, communityId: String, channelId: String, pushContent: RCSCPushContent) {
-        guard let videoMessage = RCSightMessage.init(localPath: videoPath, thumbnail: thumbnail, duration: duration) else {
-            return SVProgressHUD.showError(withStatus: "发送视频消息失败, 请检查登录状态，视频数据是否获取成功")
-        }
+        let videoMessage = RCSightMessage.init(localPath: videoPath,
+                                               thumbnail: thumbnail,
+                                               duration: duration)
         sendMediaMessage(content: videoMessage, communityId: communityId, channelId: channelId, pushContent: pushContent)
     }
     
@@ -96,12 +96,18 @@ class RCSCSendMessageHandler: NSObject {
     func resendMessage(message: RCMessage, type: RCSCMessageType, pushContent: RCSCPushContent) {
         if type == .text {
             if let content = message.content as? RCTextMessage {
-                sendTextMessage(content: content, communityId: message.targetId, channelId: message.channelId, atUsers: nil, pushContent: pushContent)
+                sendTextMessage(content: content, communityId: message.targetId,
+                                channelId: message.channelId ?? "",
+                                atUsers: nil,
+                                pushContent: pushContent)
             }
         } else if type == .image || type == .video {
             if let content = message.content as? RCMediaMessageContent {
                 content.localPath = content.realCommunityPath()
-                sendMediaMessage(content: content, communityId: message.targetId, channelId: message.channelId, pushContent: pushContent)
+                sendMediaMessage(content: content,
+                                 communityId: message.targetId,
+                                 channelId: message.channelId ?? "",
+                                 pushContent: pushContent)
             }
         }
     }
@@ -111,7 +117,7 @@ class RCSCSendMessageHandler: NSObject {
         newMessage.content = text
         newMessage.referMsgUserId = user.userId
         newMessage.referMsg = quoteMessage.content
-        newMessage.referMsgUid = quoteMessage.messageUId
+        newMessage.referMsgUid = quoteMessage.messageUId ?? ""
         newMessage.senderUserInfo = RCUserInfo(userId: user.userId, name: user.userName, portrait: user.portrait)
         
         var jsonString: String?
@@ -124,10 +130,7 @@ class RCSCSendMessageHandler: NSObject {
             }
         }
         
-        guard let msg = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: quoteMessage.targetId, channelId: quoteMessage.channelId, direction: .MessageDirection_SEND, content: newMessage) else {
-            debugPrint("消息初始化失败")
-            return
-        }
+        let msg = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: quoteMessage.targetId, channelId: quoteMessage.channelId, direction: .MessageDirection_SEND, content: newMessage)
         
         if let jsonString = jsonString {
             msg.expansionDic = [kConversationAtMessageTypeKey: jsonString]
@@ -164,9 +167,8 @@ class RCSCSendMessageHandler: NSObject {
             }
         }
         
-        guard let msg = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, direction: .MessageDirection_SEND, content: content) else {
-            return
-        }
+        let msg = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, direction: .MessageDirection_SEND, content: content)
+        
         var messagePushConfig = RCMessagePushConfig()
         messagePushConfig.pushTitle = "\(pushContent.communityName)#\(pushContent.channelName)"
         messagePushConfig.pushContent = "\(pushContent.senderName)：\(pushContent.content ?? "")"
@@ -198,9 +200,7 @@ class RCSCSendMessageHandler: NSObject {
         //发送成功之后要删除当前缓存的资源文件
         let mediaPath = content.localPath
         
-        guard let msg = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, direction: .MessageDirection_SEND, content: content) else {
-            return
-        }
+        let msg = RCMessage.init(type: .ConversationType_ULTRAGROUP, targetId: communityId, channelId: channelId, direction: .MessageDirection_SEND, content: content)
         
         var messagePushConfig = RCMessagePushConfig()
         messagePushConfig.pushTitle = "\(pushContent.communityName)#\(pushContent.channelName)"

@@ -52,7 +52,7 @@ class RCSCSystemMessage:RCMessageContent{
           }
       }
     
-    override class func getObjectName() -> String! { "RCMic:CommunitySysNotice" }
+    override class func getObjectName() -> String { "RCMic:CommunitySysNotice" }
     override class func persistentFlag() -> RCMessagePersistent { .MessagePersistent_ISCOUNTED }
     
     override func getSearchableWords() -> [String]! {

@@ -110,7 +110,8 @@ class RCSCMessageQuoteRecallCell: RCSCMessageBaseCell {
     }
     
     private func setContentText(content: RCReferenceMessage, hasSuffix: Bool) {
-        if let text = content.content {
+        let text = content.content
+        if text.count > 0 {
             
             var text = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.black282828.color])
             var suffix = NSAttributedString(string: "（已编辑）", attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.gray8E8E8E.color, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)])

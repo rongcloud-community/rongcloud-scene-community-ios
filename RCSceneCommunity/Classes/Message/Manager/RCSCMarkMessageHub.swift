@@ -351,11 +351,13 @@ extension RCSCMarkMessageHub: RCSCMarkMessageHubViewDelegate {
 extension RCSCMarkMessageHub: RCSCConversationMessageManagerDelegate {
     //此处仅处理收到消息撤回包含有被引用的消息的相关操作
     func removeValueFromMarkMessageTable(message: RCMessage) {
-        if var markMessages = markMessageTable[message.targetId]?[message.channelId] {
+        guard let markMessage = markMessageTable[message.targetId] else { return }
+        guard let channelId = message.channelId else { return }
+        if var markMessages = markMessage[channelId] {
             for (index, value) in markMessages.enumerated() {
                 if value.content?.messageUid == message.messageUId {
                     markMessages.remove(at: index)
-                    markMessageTable[message.targetId]?[message.channelId] = markMessages
+                    markMessageTable[message.targetId]?[channelId] = markMessages
                     break
                 }
             }

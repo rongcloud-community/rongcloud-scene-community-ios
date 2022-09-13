@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   
   # 2 - Version
-  s.version = '0.1.4'
+  s.version = '0.1.5'
   
   # 3 - License
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
   s.dependency 'JXSegmentedView'
   s.dependency 'HXPHPicker/Lite'
   # IMLib
-  s.dependency 'RongCloudIM/IMLib', '~> 5.2.0'
+  s.dependency 'RongCloudIM/IMLib', '>= 5.2.5'
 
   # 8 - Sources
   s.source_files = 'RCSceneCommunity/Classes/**/*'

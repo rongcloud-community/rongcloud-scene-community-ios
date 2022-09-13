@@ -68,7 +68,9 @@ extension RCSCConversationViewController: RCSCTmpInputViewProtocol {
         }
         if (opt.isValid(message)) {
             if opt == .edit {
-                RCSCConversationMessageManager.modifyMessage(messageUid: message.messageUId, text: text, atUsers: atUsers) {[weak self] success, code in
+                RCSCConversationMessageManager.modifyMessage(messageUid: message.messageUId ?? "",
+                                                             text: text,
+                                                             atUsers: atUsers) {[weak self] success, code in
                     guard let self = self else { return }
                     if success {
                         self.modifyMessageFinished()

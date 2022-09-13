@@ -197,7 +197,7 @@ extension RCSCMarkMessageViewController: UICollectionViewDataSource {
         
         let _ = cell.updateUI(message)
         
-        let userInfo = RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: message.senderUserId, completion: nil)
+        let userInfo = RCSCUserInfoCacheManager.getUserInfo(with: message.targetId, userId: message.senderUserId ?? "", completion: nil)
             
         cell.nameString = userInfo?.nickName ?? ""
         cell.avatarString = userInfo?.portrait ?? ""

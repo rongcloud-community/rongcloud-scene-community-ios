@@ -58,7 +58,7 @@ class RCSCModifyMessageHandler: NSObject {
     
     func recallMessage(message: RCMessage) {
         if message.messageUId != nil {
-            RCSCCommunityDeleteMarkApi(messageUid: message.messageUId).deleteMark().success { _ in
+            RCSCCommunityDeleteMarkApi(messageUid: message.messageUId!).deleteMark().success { _ in
                 debugPrint("delete mark message success")
             }.failed { error in
                 debugPrint("delete mark message fail error \(error.desc)")
