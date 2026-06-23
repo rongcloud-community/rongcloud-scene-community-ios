@@ -1,4 +1,11 @@
+> [!WARNING]
+> ⚠️ **暂停维护说明**
+>
+> 该工程已不再维护。
+
 # RCSceneCommunity
+
+RCSceneCommunity 是融云（RongCloud）场景化 SDK 体系中的社区模块，基于融云 IMLib（>= 5.2.5）和 IMKit 构建，为 iOS 应用提供完整的即时通讯社区解决方案。
 
 [![CI Status](https://img.shields.io/travis/xuefeng/RCSceneCommunity.svg?style=flat)](https://travis-ci.org/xuefeng/RCSceneCommunity)
 [![Version](https://img.shields.io/cocoapods/v/RCSceneCommunity.svg?style=flat)](https://cocoapods.org/pods/RCSceneCommunity)
